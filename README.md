@@ -619,13 +619,13 @@ You need to know basics of OSI model in order to have a better understanding of 
 
 It is a 7 layer architecture with each layer having specific functionality to perform:
 
-- 7. Application - this layer is implemented by the network applications
-- 6. Presentation - data from the application layer is extracted here and manipulated as per the required format to transmit over the network
-- 5. Session - responsible for the establishment of connection, maintenance of sessions, authentication, ensures security
-- 4. Transport - provides services to the application layer and takes services from the network layer
-- 3. Network - works for the transmission of data from one host to the other located in different networks
-- 2. Data-link - esponsible for the node-to-node delivery of the message
-- 1. Physical layer - responsible for the physical connection between the devices
+- 7- Application - this layer is implemented by the network applications
+- 6- Presentation - data from the application layer is extracted here and manipulated as per the required format to transmit over the network
+- 5- Session - responsible for the establishment of connection, maintenance of sessions, authentication, ensures security
+- 4- Transport - provides services to the application layer and takes services from the network layer
+- 3- Network - works for the transmission of data from one host to the other located in different networks
+- 2- Data-link - esponsible for the node-to-node delivery of the message
+- 1- Physical layer - responsible for the physical connection between the devices
 
 Read more:
 
