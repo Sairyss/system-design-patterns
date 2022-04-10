@@ -37,10 +37,10 @@ This is a list of topics and resources related to distributed systems, system de
         - [Designing around dataflow](#designing-around-dataflow)
   - [Data Consistency](#data-consistency)
     - [Different views on data](#different-views-on-data)
-      - [Dual write problems](#dual-write-problems)
-        - [The Outbox Pattern](#the-outbox-pattern)
-        - [Retrying failed steps](#retrying-failed-steps)
-        - [Change Data Capture](#change-data-capture)
+    - [Dual write problems](#dual-write-problems)
+      - [The Outbox Pattern](#the-outbox-pattern)
+      - [Retrying failed steps](#retrying-failed-steps)
+    - [Change Data Capture](#change-data-capture)
     - [Idempotent consumer](#idempotent-consumer)
     - [Lamport timestamps](#lamport-timestamps)
     - [Conflict-free replicated data type (CRDT)](#conflict-free-replicated-data-type-crdt)
@@ -245,8 +245,6 @@ Read more:
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance.
 
-Combined with Selective data replication this can make your system more performant and scalable.
-
 Read more:
 
 - [Denormalization in Databases](https://www.geeksforgeeks.org/denormalization-in-databases/)
@@ -427,7 +425,7 @@ Read more:
 - [Online analytical processing (OLAP)](https://docs.microsoft.com/en-us/azure/architecture/data-guide/relational-data/online-analytical-processing)
 - [Data Consistency Primer](<https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589800(v=pandp.10)>)
 
-#### Dual write problems
+### Dual write problems
 
 A dual write describes the situation when you change data in 2 systems, e.g., a database and Apache Kafka, without an additional layer that ensures data consistency over both services.
 
@@ -446,7 +444,7 @@ Read more:
 
 - [Dual Writes – The Unknown Cause of Data Inconsistencies](https://thorben-janssen.com/dual-writes/)
 
-##### The Outbox Pattern
+#### The Outbox Pattern
 
 Subscribing to an event from a different part of the system and creating your own view of that event (saving it to the database in a way that your system needs) is one of the ways we introduce redundancy. But saving some data and publishing an event that notifies other parts of the system about what happened can face dual write problems.
 
@@ -463,7 +461,7 @@ Read more:
 - [Pattern: Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html)
 - [The Outbox Pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/)
 
-##### Retrying failed steps
+#### Retrying failed steps
 
 Another way to prevent dual write problems is by retrying. For example, create a job that makes sure data is eventually consistent in a case of failure.
 
@@ -480,7 +478,7 @@ One of the ways to solve this is to have a periodic job that queries the databas
 
 You can see this implemented in code in this repo: [Fullstack application example](https://github.com/Sairyss/full-stack-application-example/tree/master/apps/api/src/app/modules) - check out a movie and indexer services. Movie is saved as `indexed: false` by default and indexer service has a `@Interval()` decorator meaning that it is executed periodically to make sure that if something failed during indexing it will be retried later (meaning it is eventually consistent).
 
-##### Change Data Capture
+### Change Data Capture
 
 [Change data capture (CDC)](https://en.wikipedia.org/wiki/Change_data_capture) is a pattern that tracks changes to data in a database and provides real-time movement of data allowing to process it continuously as new database events occur.
 
