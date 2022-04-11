@@ -13,6 +13,7 @@ This is a list of topics and resources related to distributed systems, system de
   - [Scalability](#scalability)
     - [Performance and availability](#performance-and-availability)
       - [Creating redundancy](#creating-redundancy)
+      - [Autoscaling](#autoscaling)
       - [Load balancing](#load-balancing)
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
@@ -36,7 +37,7 @@ This is a list of topics and resources related to distributed systems, system de
       - [Event-driven architecture](#event-driven-architecture)
         - [Event-driven end-to-end](#event-driven-end-to-end)
         - [Designing around dataflow](#designing-around-dataflow)
-  - [Data Consistency](#data-consistency)
+  - [Consistency](#consistency)
     - [Different views on data](#different-views-on-data)
     - [Dual write problems](#dual-write-problems)
       - [The Outbox Pattern](#the-outbox-pattern)
@@ -91,7 +92,7 @@ Examples: message brokers developer on top of [AMQP protocol](https://en.wikiped
 When changes occur, you need some way to reconcile changes across the different systems. One solution is eventual consistency and event-driven communication based on asynchronous messaging.
 
 Ideally, you should try to minimize the communication between the distributed systems. But it is not always possible.
-In microservices world, prefer asynchronous communication since it is better suited for communication between microservices than synchronous. The goal of each microservice is to be autonomous. If one of the microservices is down it shouldn't affect other microservices. Asynchronous protocols help with that.
+In microservices world, prefer asynchronous communication since it is better suited for communication between microservices than synchronous. The goal of each microservice is to be autonomous. If one of the microservices is down that shouldn't affect other microservices. Asynchronous protocols help with that. This topic is discussed more in details below in [coupling](#coupling) section.
 
 Read more:
 
@@ -105,11 +106,9 @@ We need to address the issue of multi-language microservices communication. A po
 
 One of the most common formats for that lately is [JSON](https://en.wikipedia.org/wiki/JSON). It is simple and human readable. For most systems out there this format is a great choice.
 
-But there is a catch. When your application gets very large and there is a lot of messages/events sent around, there are better choices.
+But when your system is growing, there are better choices.
 
-[Protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers), [Apache Avro](https://en.wikipedia.org/wiki/Apache_Avro), [Apache Thrift](https://en.wikipedia.org/wiki/Apache_Thrift) provide tools for cross platform and language neutral data formats to serialize data.
-
-Those formats are useful for services that communicate over a network or for storing data.
+[Protocol buffers](https://en.wikipedia.org/wiki/Protocol_Buffers), [Apache Avro](https://en.wikipedia.org/wiki/Apache_Avro), [Apache Thrift](https://en.wikipedia.org/wiki/Apache_Thrift) provide tools for cross platform and language neutral data formats to serialize data. Those formats are useful for services that communicate over a network or for storing data.
 
 Some pros for using a schema and serializing data include:
 
@@ -133,7 +132,7 @@ You can implement your own API Gateway if needed, or you could use existing solu
 
 Api Gateway can also handle:
 
-- [Load balancing](<https://en.wikipedia.org/wiki/Load_balancing_(computing)>) to evenly distribute load across your nodes
+- [Load balancing](#load-balancing) to evenly distribute load across your nodes
 - [Rate limiting](https://github.com/Sairyss/backend-best-practices#rate-limiting) to protect from [DDoS](https://en.wikipedia.org/wiki/Denial-of-service_attack) and [Brute Force](https://en.wikipedia.org/wiki/Brute-force_attack) attacks
 - [Authentication](https://en.wikipedia.org/wiki/Authentication) and [Authorization](https://en.wikipedia.org/wiki/Authorization) to allow only trusted clients to access your APIs
 - [Circuit Breaker](https://microservices.io/patterns/reliability/circuit-breaker.html) to prevent an application from repeatedly trying to execute an operation that's likely to fail
@@ -160,9 +159,9 @@ Below are discussed some of the problems with scalability and patterns to solve 
 
 ### Performance and availability
 
-**[Availability](https://www.techtarget.com/searchdatacenter/definition/high-availability)** is often quantified by uptime (or downtime) as a percentage of time the service is available. For example, around 8 hours of downtime per year may be considered as a 99.9% available system.
-
 **[Performance](https://en.wikipedia.org/wiki/Computer_performance)** is the amount of useful work accomplished by a computer system at reasonable time.
+
+**[Availability](https://www.techtarget.com/searchdatacenter/definition/high-availability)** is often quantified by uptime (or downtime) as a percentage of time the service is available. For example, around 8 hours of downtime per year may be considered as a 99.9% available system.
 
 Below we will discuss some techniques that can help with system performance and availability.
 
@@ -170,6 +169,15 @@ Below we will discuss some techniques that can help with system performance and 
 
 [Redundancy](<https://en.wikipedia.org/wiki/Redundancy_(engineering)>) means duplication of critical components like data, nodes and running processes, etc.
 Redundancy can improve flexibility, reliability, availability, scalability and performance of your system, failure resistance and recovery. Below we discuss techniques and patterns for creating redundancy.
+
+#### Autoscaling
+
+[Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used in cloud computing that dynamically adjusts the amount of computational resources in a server based on the load.
+
+Read more:
+
+- [What is Autoscaling? How Does It Work In the Cloud – Simply Explained](https://www.scaleyourapp.com/what-is-autoscaling-how-does-it-work-in-the-cloud-simply-explained/)
+- [Kubernetes Autoscaling: 3 Methods and How to Make Them Great](https://spot.io/resources/kubernetes-autoscaling-3-methods-and-how-to-make-them-great/)
 
 #### Load balancing
 
@@ -420,9 +428,15 @@ Read more:
 
 - [Designing Data-Intensive Applications](https://dataintensive.net/) chapter: "Designing applications around dataflow"
 
-## Data Consistency
+## Consistency
 
 Large applications typically use data that is spread across multiple data stores. Managing and maintaining data consistency in this environment is an important aspect of the system.
+
+- **Weak consistency** - After a write, there is no guarantee that reads will see it. Works well in real time use cases such as voice or video chat, and realtime multiplayer games, etc.
+- **Strong consistency** - After a write, there is a guarantee that reads will se it. Data is replicated synchronously, usually using some kind of [transaction](https://en.wikipedia.org/wiki/Database_transaction) or [Two-phase commit (2PC)](https://en.wikipedia.org/wiki/Two-phase_commit_protocol).
+- **Eventual consistency** - After a write, readers will eventually see written data (usually within seconds) and data is replicated asynchronously. Eventual consistency works best for distributed systems at a large scale.
+
+Below we will discuss where and why we need consistency, how to achieve it and some associated problems.
 
 ### Different views on data
 
@@ -589,7 +603,7 @@ Read more:
 
 Projections are usually used in Event Sourced systems to create a "view" from a stream of events by reducing those events to a single value (imagine JS reduce function `[event1, event2, event3].reduce(...)`). This is essentially a [left-fold](<https://en.wikipedia.org/wiki/Fold_(higher-order_function)>) operation in the functional world.
 
-With projections you can create as many views on your data as you want. They can be a simple SQL table, a Document in a NoSQL database, a node in a Graph Database, etc. This can satisfy query needs for everyone, since you can't really query much from a stream of events.
+With projections you can create as many views on your data as you want. Projection can be a simple SQL table, a Document in a NoSQL database, a node in a Graph Database, etc. This can satisfy query needs for everyone, since you can't really query much from a stream of events.
 
 Read more:
 
@@ -629,7 +643,9 @@ TODO
 
 [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) is a peer-to-peer communication mechanism that allows designing highly efficient distributed communication systems (P2P).
 
-TODO
+Read more:
+
+- [[YouTube] Parallel & Distributed Computing - Gossip Protocol](https://www.youtube.com/watch?v=qJpPjzg44R8)
 
 ### OSI Model
 
