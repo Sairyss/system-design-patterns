@@ -16,15 +16,16 @@ This is a list of topics and resources related to distributed systems, system de
       - [Load balancing](#load-balancing)
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
-      - [Caching](#caching)
-        - [Caching strategies](#caching-strategies)
-      - [Distributed caches](#distributed-caches)
-      - [CDNs](#cdns)
+    - [Databases](#databases)
       - [Data replication](#data-replication)
       - [Data partitioning](#data-partitioning)
       - [Data Denormalization](#data-denormalization)
       - [Materialized views](#materialized-views)
       - [CQRS](#cqrs)
+    - [Caching](#caching)
+      - [Caching strategies](#caching-strategies)
+      - [Distributed caches](#distributed-caches)
+      - [CDNs](#cdns)
     - [Coupling](#coupling)
       - [Location coupling](#location-coupling)
       - [Temporal coupling](#temporal-coupling)
@@ -159,11 +160,15 @@ Below are discussed some of the problems with scalability and patterns to solve 
 
 ### Performance and availability
 
-Here we will discuss some techniques that can help with system performance and availability.
+**[Availability](https://www.techtarget.com/searchdatacenter/definition/high-availability)** is often quantified by uptime (or downtime) as a percentage of time the service is available. For example, around 8 hours of downtime per year may be considered as a 99.9% available system.
+
+**[Performance](https://en.wikipedia.org/wiki/Computer_performance)** is the amount of useful work accomplished by a computer system at reasonable time.
+
+Below we will discuss some techniques that can help with system performance and availability.
 
 #### Creating redundancy
 
-Redundancy means duplication of critical components like data, nodes and running processes, etc.
+[Redundancy](<https://en.wikipedia.org/wiki/Redundancy_(engineering)>) means duplication of critical components like data, nodes and running processes, etc.
 Redundancy can improve flexibility, reliability, availability, scalability and performance of your system, failure resistance and recovery. Below we discuss techniques and patterns for creating redundancy.
 
 #### Load balancing
@@ -189,46 +194,7 @@ Read more:
 - [What Is Layer 4 Load Balancing?](https://www.nginx.com/resources/glossary/layer-4-load-balancing/)
 - [What Is Layer 7 Load Balancing?](https://www.nginx.com/resources/glossary/layer-7-load-balancing/)
 
-#### Caching
-
-A [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>) is a high-speed data storage layer which stores a subset of data, typically temporary, so that future requests for that data are served up faster than by accessing the data’s primary storage.
-
-For caching you can use tools like [Redis](https://redis.io/), [Memcached](https://memcached.org/), or other key-value stores.
-
-##### Caching strategies
-
-There are several caching strategies worth knowing. Most common are:
-
-- Cache-aside (lazy loading)
-- Write-through
-- Write-behind
-- Refresh-ahead
-
-Read more:
-
-- [Database Caching Strategies Using Redis](https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/database-challenges.html)
-- [Architecture Patterns: Caching (Part-1)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-1/)
-
-#### Distributed caches
-
-A [distributed cache](https://en.wikipedia.org/wiki/Distributed_cache#:~:text=In%20computing%2C%20a%20distributed%20cache,database%20and%20web%20session%20data.) is an extension of the cache from a single server to multiple servers. A distributed cache can improve the performance and scalability of the system.
-
-Read more:
-
-- [Distributed cache system design](https://medium.com/system-design-concepts/distributed-cache-system-design-9560f7dd07f2)
-- [Architecture Patterns: Caching (Part-2)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-2/)
-
-#### CDNs
-
-[Content delivery network](https://en.wikipedia.org/wiki/Content_delivery_network) is geographically distributed group of servers which work together to provide fast delivery of Internet content.
-
-A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos.
-
-CDN can increase content availability, redundancy, improve website load times.
-
-Read more:
-
-- [What is a CDN?](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/)
+### Databases
 
 #### Data replication
 
@@ -286,6 +252,47 @@ CQRS is a great fit when used together with [Event Sourcing](#event-sourcing).
 Read more:
 
 - [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
+
+### Caching
+
+A [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>) is a high-speed data storage layer which stores a subset of data, typically temporary, so that future requests for that data are served up faster than by accessing the data’s primary storage.
+
+For caching you can use tools like [Redis](https://redis.io/), [Memcached](https://memcached.org/), or other key-value stores.
+
+#### Caching strategies
+
+There are several caching strategies worth knowing. Most common are:
+
+- Cache-aside (lazy loading)
+- Write-through
+- Write-behind
+- Refresh-ahead
+
+Read more:
+
+- [Database Caching Strategies Using Redis](https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/database-challenges.html)
+- [Architecture Patterns: Caching (Part-1)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-1/)
+
+#### Distributed caches
+
+A [distributed cache](https://en.wikipedia.org/wiki/Distributed_cache#:~:text=In%20computing%2C%20a%20distributed%20cache,database%20and%20web%20session%20data.) is an extension of the cache from a single server to multiple servers. A distributed cache can improve the performance and scalability of the system.
+
+Read more:
+
+- [Distributed cache system design](https://medium.com/system-design-concepts/distributed-cache-system-design-9560f7dd07f2)
+- [Architecture Patterns: Caching (Part-2)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-2/)
+
+#### CDNs
+
+[Content delivery network](https://en.wikipedia.org/wiki/Content_delivery_network) is geographically distributed group of servers which work together to provide fast delivery of Internet content.
+
+A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos.
+
+CDN can increase content availability, redundancy, improve website load times.
+
+Read more:
+
+- [What is a CDN?](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/)
 
 ### Coupling
 
