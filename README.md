@@ -168,26 +168,30 @@ Redundancy can improve flexibility, reliability, availability, scalability and p
 
 #### Load balancing
 
-To distribute traffic between multiple instances/nodes, you will need load balancing.
+To distribute traffic between multiple instances/nodes, you will need load balancing tools.
 [Load balancing](<https://en.wikipedia.org/wiki/Load_balancing_(computing)>) is a technique to distribute network or application traffic across a number of servers.
 
 ##### Layer 4 load balancing
 
-TODO
+Layer 4 load balancers operate at the transport level and make their routing decisions based on address information extracted from the first few packets in the TCP stream and do not inspect packet content.
 
 ##### Layer 7 load balancing
 
-TODO
+Level 7 load balancing deals with the actual content of each message enabling the load balancer to make smarter load‑balancing decisions, can apply optimizations and changes to the content (such as compression and encryption) and make decisions based on the message content. Layer 7 gives a lot of interesting benefits, but is less performant.
 
 **Note**: Layers 4 and 7 are a part of [OSI Model](#osi-model).
+
+[Kong](https://konghq.com/kong/), [nginx](https://www.nginx.com/), [kubernetes](https://kubernetes.io/) include load balancing capabilities.
 
 Read more:
 
 - [System Design — Load Balancing](https://medium.com/must-know-computer-science/system-design-load-balancing-1c2e7675fc27)
+- [What Is Layer 4 Load Balancing?](https://www.nginx.com/resources/glossary/layer-4-load-balancing/)
+- [What Is Layer 7 Load Balancing?](https://www.nginx.com/resources/glossary/layer-7-load-balancing/)
 
 #### Caching
 
-TODO
+A [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>) is a high-speed data storage layer which stores a subset of data, typically temporary, so that future requests for that data are served up faster than by accessing the data’s primary storage.
 
 For caching you can use tools like [Redis](https://redis.io/), [Memcached](https://memcached.org/), or other key-value stores.
 
@@ -207,17 +211,20 @@ Read more:
 
 #### Distributed caches
 
-TODO
+A [distributed cache](https://en.wikipedia.org/wiki/Distributed_cache#:~:text=In%20computing%2C%20a%20distributed%20cache,database%20and%20web%20session%20data.) is an extension of the cache from a single server to multiple servers. A distributed cache can improve the performance and scalability of the system.
 
 Read more:
 
+- [Distributed cache system design](https://medium.com/system-design-concepts/distributed-cache-system-design-9560f7dd07f2)
 - [Architecture Patterns: Caching (Part-2)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-2/)
 
 #### CDNs
 
 [Content delivery network](https://en.wikipedia.org/wiki/Content_delivery_network) is geographically distributed group of servers which work together to provide fast delivery of Internet content.
 
-TODO
+A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos.
+
+CDN can increase content availability, redundancy, improve website load times.
 
 Read more:
 
@@ -227,7 +234,7 @@ Read more:
 
 [Data replication](<https://en.wikipedia.org/wiki/Replication_(computing)>) is when the same data is intentionally stored in more than one node.
 
-TODO
+Having multiple copies of data can improve read performance, availability, prevent disasters in cases when one of the databases loses it's data.
 
 Read more:
 
@@ -235,7 +242,7 @@ Read more:
 
 #### Data partitioning
 
-TODO
+[Partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a division of a database into distinct independent parts. When you have big amounts of data that don't fit into one database partitioning is a logical next step to improve database performance.
 
 Read more:
 
@@ -254,9 +261,15 @@ Read more:
 
 [Materialized view](https://en.wikipedia.org/wiki/Materialized_view) is a pre-computed data set derived from a query specification and stored for later use.
 
-TODO
+Materialized view can be just a result of a `SELECT` statement:
 
-Materialized views are fast, but data can be outdated since refreshing a view can be an expensive operation that is only done periodically (for example once a day). This is great of some things like daily statistics, but not good enough for real time systems.
+```sql
+CREATE MATERIALIZED VIEW my_view AS SELECT * FROM some_table;
+```
+
+Result of this `SELECT` statement will be stored as a view so every time you query for it there is no need to compute the result again.
+
+Materialized views can improve performance, but data may be outdated since refreshing a view can be an expensive operation that is only done periodically (for example once a day). This is great of some things like daily statistics, but not good enough for real time systems.
 
 Read more:
 
@@ -619,13 +632,13 @@ You need to know basics of OSI model in order to have a better understanding of 
 
 It is a 7 layer architecture with each layer having specific functionality to perform:
 
-- 7- Application - this layer is implemented by the network applications
-- 6- Presentation - data from the application layer is extracted here and manipulated as per the required format to transmit over the network
-- 5- Session - responsible for the establishment of connection, maintenance of sessions, authentication, ensures security
-- 4- Transport - provides services to the application layer and takes services from the network layer
-- 3- Network - works for the transmission of data from one host to the other located in different networks
-- 2- Data-link - esponsible for the node-to-node delivery of the message
-- 1- Physical layer - responsible for the physical connection between the devices
+1. Physical layer - responsible for the physical connection between the devices
+2. Data-link - responsible for the node-to-node delivery of the message
+3. Network - works for the transmission of data from one host to the other located in different networks
+4. Transport - provides services to the application layer and takes services from the network layer
+5. Session - responsible for the establishment of connection, maintenance of sessions, authentication, ensures security
+6. Presentation - data from the application layer is extracted here and manipulated as per the required format to transmit over the network
+7. Application - this layer is implemented by the network applications
 
 Read more:
 
