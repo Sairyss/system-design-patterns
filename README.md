@@ -39,6 +39,12 @@ This is a list of topics and resources related to distributed systems, system de
         - [Designing around dataflow](#designing-around-dataflow)
   - [Consistency](#consistency)
     - [Different views on data](#different-views-on-data)
+    - [Distributed transactions](#distributed-transactions)
+      - [Two-phase commit (2PC)](#two-phase-commit-2pc)
+      - [Sagas](#sagas)
+        - [Orchestration](#orchestration)
+        - [Choreography](#choreography)
+        - [Process manager](#process-manager)
     - [Dual write problems](#dual-write-problems)
       - [The Outbox Pattern](#the-outbox-pattern)
       - [Retrying failed steps](#retrying-failed-steps)
@@ -433,7 +439,7 @@ Read more:
 Large applications typically use data that is spread across multiple data stores. Managing and maintaining data consistency in this environment is an important aspect of the system.
 
 - **Weak consistency** - After a write, there is no guarantee that reads will see it. Works well in real time use cases such as voice or video chat, and realtime multiplayer games, etc.
-- **Strong consistency** - After a write, there is a guarantee that reads will se it. Data is replicated synchronously, usually using some kind of [transaction](https://en.wikipedia.org/wiki/Database_transaction) or [Two-phase commit (2PC)](https://en.wikipedia.org/wiki/Two-phase_commit_protocol).
+- **Strong consistency** - After a write, there is a guarantee that reads will se it. Data is replicated synchronously, usually using some kind of [transaction](https://en.wikipedia.org/wiki/Database_transaction).
 - **Eventual consistency** - After a write, readers will eventually see written data (usually within seconds) and data is replicated asynchronously. Eventual consistency works best for distributed systems at a large scale.
 
 Below we will discuss where and why we need consistency, how to achieve it and some associated problems.
@@ -458,6 +464,63 @@ Read more:
 
 - [Online analytical processing (OLAP)](https://docs.microsoft.com/en-us/azure/architecture/data-guide/relational-data/online-analytical-processing)
 - [Data Consistency Primer](<https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589800(v=pandp.10)>)
+
+### Distributed transactions
+
+Another reason why distributed systems are hard is consistency problems.
+
+In a typical non-distributed application, you can use database transactions to achieve strong consistency pretty easily. But in a distributed world, when databases can be on a different servers, simple transactions won't work anymore so we need to find workarounds. And with those workarounds we usually can only achieve weak or eventual consistency, because strong consistency usually means low performance and coupling, which is unacceptable when you distribute.
+
+#### Two-phase commit (2PC)
+
+[Two-phase commit (2PC)](https://en.wikipedia.org/wiki/Two-phase_commit_protocol) is one of the ways how to achieve strong consistency in a distributed world. Using 2PC, each server participating in a transaction starts a local transaction, and they all commit only when other participants finish executing the transaction.
+
+2PC can guarantee strong consistency, but it is rarely used because:
+
+- It is blocking. If the coordinator fails permanently, some participants will never resolve their transactions
+- It is slow and affects performance of participating systems
+- It creates coupling between systems
+
+Read more:
+
+- [Two Phase Commit](https://martinfowler.com/articles/patterns-of-distributed-systems/two-phase-commit.html)
+
+#### Sagas
+
+In modern distributed systems, eventual consistency is preferred because it scales better. But how do we achieve it?
+
+One of the patterns for this is Sagas. A saga is a sequence of local transactions, but unlike 2PC, each transaction commits immediately, without waiting for other participants to finish. This way, all transactions will be committed asynchronously(eventually). Each participant must have a compensating mechanism to revert a saga, so if one of the participants fails, saga should start a revert process to undo all the changes.
+
+Read more:
+
+- [Pattern: Saga](https://microservices.io/patterns/data/saga.html)
+- [Saga distributed transactions](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/saga/saga)
+
+##### Orchestration
+
+Orchestration is a centralized approach. Parts of the systems that are participating in a workflow are controlled by a single entity called Orchestrator.
+
+Orchestrator is responsible for executing each step in a flow and ensuring consistency.
+
+##### Choreography
+
+Choreography is a decentralized approach. Unlike orchestration, when using choreography there is no central place that coordinates workflows. Each part of the system is responsible for subscribing to events it needs. This way data just flows through the system from one part of the system to another.
+
+Choreography is flexible and doesn't create much coupling (unlike Orchestration), but it can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using a orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place. This might create some coupling, but is easier to maintain. A lot of systems use both orchestration and choreography depending on the use case, you don't necessarily need to choose just one. Pick the right tools for the job.
+
+Read more:
+
+- [Microservice Orchestration Vs Choreography](https://softobiz.com/microservice-orchestration-vs-choreography/)
+
+##### Process manager
+
+[Process manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) is used to maintain the state of the sequence and determine the next processing step based on intermediate results.
+
+Process manager is very similar to Orchestrator. In fact, a lot of people use the terms like "Saga" and "Orchestration" when in reality they are talking about the process manager.
+
+Process managers are state machines that store some state, while sagas usually don't have a state and operate only on data that they receive in events.
+
+- [Saga vs. Process Manager](https://blog.devarchive.net/2015/11/saga-vs-process-manager.html?m=1)
 
 ### Dual write problems
 
@@ -511,6 +574,8 @@ What if your application crashes in the middle of this operation, or if external
 One of the ways to solve this is to have a periodic job that queries the database every X minutes and retries indexing movies that were not indexed.
 
 You can see this implemented in code in this repo: [Fullstack application example](https://github.com/Sairyss/full-stack-application-example/tree/master/apps/api/src/app/modules) - check out a movie and indexer services. Movie is saved as `indexed: false` by default and indexer service has a `@Interval()` decorator meaning that it is executed periodically to make sure that if something failed during indexing it will be retried later (meaning it is eventually consistent).
+
+One important detail: when retrying make sure your consumers are [idempotent](#idempotent-consumer).
 
 ### Change Data Capture
 
@@ -694,5 +759,6 @@ Read more:
 
 ### Videos
 
+- [Scaling up to your first 10 million users (YouTube)](https://www.youtube.com/watch?v=kKjm4ehYiMs)
 - [Developing microservices with aggregates - Chris Richardson (YouTube)](https://youtu.be/7kX3fs0pWwc)
 - [InfoQ Channel (YouTube)](https://www.youtube.com/nctv)
