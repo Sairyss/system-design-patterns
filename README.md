@@ -4,6 +4,13 @@
 
 This is a list of topics and resources related to distributed systems, system design, microservices, scalability and performance, etc
 
+**Check out my other repositories**:
+
+- [Domain-Driven Hexagon](https://github.com/Sairyss/domain-driven-hexagon) - Guide on Domain-Driven Design, software architecture, design patterns, best practices etc.
+- [Backend best practices](https://github.com/Sairyss/backend-best-practices) - Best practices, tools and guidelines for backend development.
+
+---
+
 - [Distributed systems topics](#distributed-systems-topics)
   - [Distributed systems integration](#distributed-systems-integration)
     - [Synchronous communication](#synchronous-communication)
@@ -50,7 +57,9 @@ This is a list of topics and resources related to distributed systems, system de
       - [Retrying failed steps](#retrying-failed-steps)
     - [Change Data Capture](#change-data-capture)
     - [Idempotent consumer](#idempotent-consumer)
-    - [Lamport timestamps](#lamport-timestamps)
+    - [Time inconsistencies](#time-inconsistencies)
+      - [Lamport timestamps](#lamport-timestamps)
+      - [Vector clocks](#vector-clocks)
     - [Conflict-free replicated data type (CRDT)](#conflict-free-replicated-data-type-crdt)
     - [Consensus algorithms](#consensus-algorithms)
       - [Byzantine generals problem](#byzantine-generals-problem)
@@ -164,6 +173,8 @@ Scalability is the capability to handle the increased workload by repeatedly app
 Below are discussed some of the problems with scalability and patterns to solve those problems.
 
 ### Performance and availability
+
+Parts of distributed systems communicate through network. Networks are unreliable and slow compared to communication in a single process node. Ensuring good performance and availability in this conditions is an important aspect of a distributed system.
 
 **[Performance](https://en.wikipedia.org/wiki/Computer_performance)** is the amount of useful work accomplished by a computer system at reasonable time.
 
@@ -436,7 +447,7 @@ Read more:
 
 ## Consistency
 
-Large applications typically use data that is spread across multiple data stores. Managing and maintaining data consistency in this environment is an important aspect of the system.
+Distributed systems are made up of parts which interact relatively slowly and unreliably. Asynchronous networks can duplicate data, drop packets, reorder messages, have delays, etc. Data can be spread across multiple data stores so managing and maintaining consistency in this environment is an important aspect of the system.
 
 - **Weak consistency** - After a write, there is no guarantee that reads will see it. Works well in real time use cases such as voice or video chat, and realtime multiplayer games, etc.
 - **Strong consistency** - After a write, there is a guarantee that reads will se it. Data is replicated synchronously, usually using some kind of [transaction](https://en.wikipedia.org/wiki/Database_transaction).
@@ -607,15 +618,29 @@ Read more:
 - [Pattern: Idempotent Consumer](https://microservices.io/patterns/communication-style/idempotent-consumer.html)
 - [Idempotent receiver](https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html)
 
-### Lamport timestamps
+### Time inconsistencies
+
+If you need to determine an order of some events, the most intuitive way is using timestamps: event that has a lower timestamp should be first, right? Wrong. Clocks are unreliable, especially in distributed systems. Hardware can drift, threads, OS and runtimes can sleep, system can synchronize time using [NTP](https://en.wikipedia.org/wiki/Network_Time_Protocol) causing time to jump forwards or backwards, current time can be resynchronized between different systems, etc.
+
+Below we will discuss few patterns to deal with that.
+
+#### Lamport timestamps
 
 [Lamport timestamp](https://en.wikipedia.org/wiki/Lamport_timestamp) algorithm is a simple logical clock algorithm used to determine the order of events in a distributed computer system.
-
-TODO
 
 Read more:
 
 - [Lamport Clock](https://martinfowler.com/articles/patterns-of-distributed-systems/lamport-clock.html)
+- [The trouble with timestamps](https://aphyr.com/posts/299-the-trouble-with-timestamps)
+
+#### Vector clocks
+
+[Vector clock](https://en.wikipedia.org/wiki/Vector_clock) is a data structure used for determining the partial ordering of events in a distributed system and detecting causality violations.
+
+Read more:
+
+- [Vector Clocks in Distributed Systems](https://www.geeksforgeeks.org/vector-clocks-in-distributed-systems/)
+- [Vector Clocks](https://sookocheff.com/post/time/vector-clocks/)
 
 ### Conflict-free replicated data type (CRDT)
 
