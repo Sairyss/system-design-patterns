@@ -25,9 +25,10 @@ This is a list of topics and resources related to distributed systems, system de
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
     - [Databases](#databases)
-      - [Data replication](#data-replication)
-      - [Data partitioning](#data-partitioning)
-      - [Data Denormalization](#data-denormalization)
+      - [Replication](#replication)
+      - [Partitioning](#partitioning)
+      - [Federation](#federation)
+      - [Denormalization](#denormalization)
       - [Materialized views](#materialized-views)
       - [CQRS](#cqrs)
     - [Caching](#caching)
@@ -221,7 +222,7 @@ Read more:
 
 ### Databases
 
-#### Data replication
+#### Replication
 
 [Data replication](<https://en.wikipedia.org/wiki/Replication_(computing)>) is when the same data is intentionally stored in more than one node.
 
@@ -231,7 +232,7 @@ Read more:
 
 - [Read Consistency with Database Replicas](https://shopify.engineering/read-consistency-database-replicas)
 
-#### Data partitioning
+#### Partitioning
 
 [Partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a division of a database into distinct independent parts. When you have big amounts of data that don't fit into one database partitioning is a logical next step to improve database performance.
 
@@ -239,7 +240,21 @@ Read more:
 
 - [Data partitioning guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning)
 
-#### Data Denormalization
+#### Federation
+
+[Federation](https://en.wikipedia.org/wiki/Federated_database_system) splits databases by some particular function or domain. Instead of having multiple tables in one database, for example "users", "wallets", "transactions", in federated approach this could be 3 different databases. This can increase performance since load will be split across 3 databases instead of 1.
+
+Downsides of this approach:
+
+- You'll need to decide manually which database to connect to.
+- Joining data from multiple databases will be much harder.
+- More complexity in code and infrastructure.
+
+Read more:
+
+- [What is a Data Federation?](https://www.tibco.com/reference-center/what-is-a-data-federation)
+
+#### Denormalization
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance.
 
