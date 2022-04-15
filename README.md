@@ -2,7 +2,7 @@
 
 **This repo is work in progress**
 
-This is a list of topics and resources related to distributed systems, system design, microservices, scalability and performance, etc
+Topics and resources related to distributed systems, system design, microservices, scalability and performance, etc
 
 **Check out my other repositories**:
 
@@ -706,9 +706,11 @@ Read more:
 
 #### Projections
 
-Projections are usually used in Event Sourced systems to create a "view" from a stream of events by reducing those events to a single value (imagine JS reduce function `[event1, event2, event3].reduce(...)`). This is essentially a [left-fold](<https://en.wikipedia.org/wiki/Fold_(higher-order_function)>) operation in the functional world.
+Projections are usually used in Event Sourced systems to create a "view" from a stream of events by reducing those events to a single value (imagine JS [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) function `[event1, event2, event3].reduce(...)`). This is essentially a [left-fold](<https://en.wikipedia.org/wiki/Fold_(higher-order_function)>) operation in the functional world.
 
 With projections you can create as many views on your data as you want. Projection can be a simple SQL table, a Document in a NoSQL database, a node in a Graph Database, etc. This can satisfy query needs for everyone, since you can't really query much from a stream of events.
+
+Usually you would subscribe to a stream of events and change projection state when any event happens. A naive approach would be to change projection state in the database directly by executing a query for each event, but this will be very slow during replays. To make projections performant during replays consider loading a batch of events and changing state in-memory first using reducer/left-fold operation combined with [pure functions](https://en.wikipedia.org/wiki/Pure_function) and some patterns like [identity map](https://www.sourcecodeexamples.net/2018/04/identity-map-pattern.html), then execute all queries in batches instead of doing it one by one.
 
 Read more:
 
