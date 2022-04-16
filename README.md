@@ -21,6 +21,7 @@ Topics and resources related to distributed systems, system design, microservice
     - [Performance and availability](#performance-and-availability)
       - [Creating redundancy](#creating-redundancy)
       - [Autoscaling](#autoscaling)
+      - [Bulkhead pattern](#bulkhead-pattern)
       - [Load balancing](#load-balancing)
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
@@ -197,6 +198,14 @@ Read more:
 - [What is Autoscaling? How Does It Work In the Cloud – Simply Explained](https://www.scaleyourapp.com/what-is-autoscaling-how-does-it-work-in-the-cloud-simply-explained/)
 - [Kubernetes Autoscaling: 3 Methods and How to Make Them Great](https://spot.io/resources/kubernetes-autoscaling-3-methods-and-how-to-make-them-great/)
 
+#### Bulkhead pattern
+
+The Bulkhead pattern is a type of application design that is tolerant of failure. In a bulkhead architecture, elements of an application are isolated into pools so that if one fails, the others will continue to function. It’s named after the sectioned partitions (bulkheads) of a ship’s hull. If the hull of a ship is compromised, only the damaged section fills with water, which prevents the ship from sinking.
+
+Read more:
+
+- [Bulkhead pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead)
+
 #### Load balancing
 
 To distribute traffic between multiple instances/nodes, you will need load balancing tools.
@@ -234,11 +243,12 @@ Read more:
 
 #### Partitioning
 
-[Partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a division of a database into distinct independent parts. When you have big amounts of data that don't fit into one database partitioning is a logical next step to improve database performance.
+[Partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a division of a database into distinct independent parts. When you have large amounts of data that don't fit into one database partitioning is a logical next step to improve scalability.
 
 Read more:
 
 - [Data partitioning guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning)
+- [Sharding pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/sharding)
 
 #### Federation
 
@@ -303,13 +313,14 @@ For caching you can use tools like [Redis](https://redis.io/), [Memcached](https
 
 There are several caching strategies worth knowing. Most common are:
 
-- Cache-aside (lazy loading)
+- [Cache-aside](https://docs.microsoft.com/en-us/azure/architecture/patterns/cache-aside) (lazy loading)
 - Write-through
 - Write-behind
 - Refresh-ahead
 
 Read more:
 
+- [Caching guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/caching)
 - [Database Caching Strategies Using Redis](https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/database-challenges.html)
 - [Architecture Patterns: Caching (Part-1)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-1/)
 
@@ -367,13 +378,14 @@ Temporal coupling usually happens in synchronously communicated systems (a part 
 
 The most common approach to breaking temporal coupling is the use of [message queues](https://en.wikipedia.org/wiki/Message_queue). Instead of invoking other parts of a system synchronously (calling and waiting for the response), the caller instead puts a request on a queue and the other system consumes this request when it is available.
 
-A message queue is a form of [asynchronous communication](#asynchronous-communication) used in some distributed systems (like microservices). Messages are stored on the queue until they are processed. Each message should be processed only once, by a single consumer.
+A message queue is a form of [asynchronous communication](#asynchronous-communication) used in some distributed systems (like microservices). Messages are stored on the queue until they are processed. Each message should be processed only once by a single consumer ([idempotent consumer](#idempotent-consumer)).
 
 Examples of a queue/brokers include [RabbitMQ](https://www.rabbitmq.com/) and [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
 
 Read more:
 
 - [System Design — Message Queues](https://medium.com/must-know-computer-science/system-design-message-queues-245612428a22)
+- [Queue-Based Load Leveling pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling)
 
 #### Business data and logic coupling
 
@@ -521,6 +533,7 @@ Read more:
 
 - [Pattern: Saga](https://microservices.io/patterns/data/saga.html)
 - [Saga distributed transactions](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/saga/saga)
+- [Compensating Transaction pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction)
 
 ##### Orchestration
 
@@ -632,6 +645,7 @@ Read more:
 
 - [Pattern: Idempotent Consumer](https://microservices.io/patterns/communication-style/idempotent-consumer.html)
 - [Idempotent receiver](https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html)
+- [Idempotency Patterns](https://blog.jonathanoliver.com/idempotency-patterns/)
 
 ### Time inconsistencies
 
