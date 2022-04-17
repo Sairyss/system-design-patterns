@@ -90,7 +90,7 @@ Topics and resources related to distributed systems, system design, microservice
 
 In synchronous communication a client depends on an answer. In this form of communication the client sends a request and waits for a response before continuing.
 
-Examples of a synchronous communication are [RPC](https://en.wikipedia.org/wiki/Remote_procedure_call) principles such as [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), [gRPC](https://en.wikipedia.org/wiki/GRPC), [Apache Thrift](https://en.wikipedia.org/wiki/Apache_Thrift) etc. Also [RabbitMQ supports RPC pattern](https://www.rabbitmq.com/tutorials/tutorial-six-javascript.html).
+Examples of a synchronous communication are [Remote Procedure Calls (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call) over [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), [gRPC](https://en.wikipedia.org/wiki/GRPC), [Apache Thrift](https://en.wikipedia.org/wiki/Apache_Thrift) etc. Also [RabbitMQ supports RPC pattern](https://www.rabbitmq.com/tutorials/tutorial-six-javascript.html).
 
 Synchronous calls can be a good choice for:
 
@@ -104,7 +104,7 @@ Synchronous calls between distributed systems is not always a good idea. It crea
 
 In async communication, client or message sender doesn't wait for a response. It just sends a message which is stored until the receiver takes it (fire and forget).
 
-Examples: message brokers developer on top of [AMQP protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol) (like [RabbitMQ](https://www.rabbitmq.com/)) or event streams like [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
+Examples: message brokers developed on top of [AMQP protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol) (like [RabbitMQ](https://www.rabbitmq.com/)) or event streams like [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
 
 When changes occur, you need some way to reconcile changes across the different systems. One solution is eventual consistency and event-driven communication based on asynchronous messaging.
 
@@ -145,15 +145,16 @@ Your clients need to communicate to your system somehow. Here is where Api Gatew
 > An API gateway is an API management tool that sits between a client and a collection of backend services. An API gateway acts as a reverse proxy to accept all application programming interface (API) calls, aggregate the various services required to fulfill them, and return the appropriate result.
 > <small>Quote from [What does an API gateway do?](https://www.redhat.com/en/topics/api/what-does-an-api-gateway-do#:~:text=An%20API%20gateway%20is%20an,and%20return%20the%20appropriate%20result.)</small>
 
-You can implement your own API Gateway if needed, or you could use existing solutions like [Kong](https://konghq.com/kong/), [nginx](https://www.nginx.com/) can be used as API Gateway etc.
+You can implement your own API Gateway if needed, or you could use existing solutions like [Kong](https://konghq.com/kong/) or [nginx](https://www.nginx.com/).
 
 Api Gateway can also handle:
 
+- [Gateway Routing pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-routing) can help with routing requests to multiple services using a single endpoint
 - [Load balancing](#load-balancing) to evenly distribute load across your nodes
 - [Rate limiting](https://github.com/Sairyss/backend-best-practices#rate-limiting) to protect from [DDoS](https://en.wikipedia.org/wiki/Denial-of-service_attack) and [Brute Force](https://en.wikipedia.org/wiki/Brute-force_attack) attacks
 - [Authentication](https://en.wikipedia.org/wiki/Authentication) and [Authorization](https://en.wikipedia.org/wiki/Authorization) to allow only trusted clients to access your APIs
 - [Circuit Breaker](https://microservices.io/patterns/reliability/circuit-breaker.html) to prevent an application from repeatedly trying to execute an operation that's likely to fail
-- Compose data from multiple microservices for your client
+- [Gateway Aggregation pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-aggregation) can help to Compose data from multiple microservices for your client
 - Analytics and monitoring for your API calls
 - and much more
 
@@ -163,6 +164,7 @@ Read more:
 - [Building Microservices: Using an API Gateway](https://www.nginx.com/blog/building-microservices-using-an-api-gateway/)
 - [My experiences with API gateways](https://mahesh-mahadevan.medium.com/my-experiences-with-api-gateways-8a93ad17c4c4)
 - [The API gateway pattern versus the Direct client-to-microservice communication](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern)
+- [Gateway Offloading pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/gateway-offloading)
 
 ## Scalability
 
@@ -176,7 +178,7 @@ Below are discussed some of the problems with scalability and patterns to solve 
 
 ### Performance and availability
 
-Parts of distributed systems communicate through network. Networks are unreliable and slow compared to communication in a single process node. Ensuring good performance and availability in this conditions is an important aspect of a distributed system.
+Components of distributed systems communicate through a network. Networks are unreliable and slow compared to communication in a single process node. Ensuring good performance and availability in this conditions is an important aspect of a distributed system.
 
 **[Performance](https://en.wikipedia.org/wiki/Computer_performance)** is the amount of useful work accomplished by a computer system at reasonable time.
 
@@ -266,7 +268,7 @@ Read more:
 
 #### Denormalization
 
-[Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance.
+[Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance by adding redundant copies of data.
 
 Read more:
 
@@ -285,11 +287,12 @@ CREATE MATERIALIZED VIEW my_view AS SELECT * FROM some_table;
 
 Result of this `SELECT` statement will be stored as a view so every time you query for it there is no need to compute the result again.
 
-Materialized views can improve performance, but data may be outdated since refreshing a view can be an expensive operation that is only done periodically (for example once a day). This is great of some things like daily statistics, but not good enough for real time systems.
+Materialized views can improve performance, but data may be outdated since refreshing a view can be an expensive operation that is only done periodically (for example once a day). This is great for some things like daily statistics, but not good enough for real time systems.
 
 Read more:
 
 - [Working with Materialized Views](https://docs.snowflake.com/en/user-guide/views-materialized.html#:~:text=A%20materialized%20view%20is%20a,base%20table%20of%20the%20view.)
+- [Materialized View pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view)
 
 #### CQRS
 
