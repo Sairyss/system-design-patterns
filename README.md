@@ -223,13 +223,14 @@ Level 7 load balancing deals with the actual content of each message enabling th
 
 **Note**: Layers 4 and 7 are a part of [OSI Model](#osi-model).
 
-[Kong](https://konghq.com/kong/), [nginx](https://www.nginx.com/), [kubernetes](https://kubernetes.io/) include load balancing capabilities.
+Load balancing can be done by an [api gateway](#api-gateway) / [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
 
 Read more:
 
 - [System Design — Load Balancing](https://medium.com/must-know-computer-science/system-design-load-balancing-1c2e7675fc27)
 - [What Is Layer 4 Load Balancing?](https://www.nginx.com/resources/glossary/layer-4-load-balancing/)
 - [What Is Layer 7 Load Balancing?](https://www.nginx.com/resources/glossary/layer-7-load-balancing/)
+- [System Design — Proxies](https://medium.com/must-know-computer-science/system-design-proxies-ef5f2c2676f2)
 
 ### Databases
 
@@ -441,6 +442,7 @@ Read more:
 
 - [Why Microservices Should Be Event Driven: Autonomy vs Authority](https://www.google.com/search?client=firefox-b-d&q=consistent+hashing)
 - [Using Events to build evolutionary architectures](https://kislayverma.com/software-architecture/using-events-to-build-evolutionary-architectures/)
+- [[YouTube] Moving to event-driven architectures](https://youtu.be/h46IquqjF3E)
 
 ##### Event-driven end-to-end
 
