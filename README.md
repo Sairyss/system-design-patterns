@@ -26,6 +26,7 @@ Topics and resources related to distributed systems, system design, microservice
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
     - [Databases](#databases)
+      - [SQL vs NoSQL](#sql-vs-nosql)
       - [Replication](#replication)
       - [Partitioning](#partitioning)
       - [Federation](#federation)
@@ -233,6 +234,31 @@ Read more:
 - [System Design — Proxies](https://medium.com/must-know-computer-science/system-design-proxies-ef5f2c2676f2)
 
 ### Databases
+
+#### SQL vs NoSQL
+
+**SQL**, or relational, databases are good for structured data.
+
+SQL databases are great for transaction-oriented systems that need strong [consistency](#consistency) because SQL Databases are [ACID](https://en.wikipedia.org/wiki/ACID) compliant.
+
+Relational databases can be very efficient at accessing well structured data, as it is placed in predictable memory locations.
+
+Relational databases are usually scaled vertically. Because in relational databases data is structured and can have connections between tables it is harder to partition / scale horizontally.
+
+Relational databases are a better choice as a main database for most projects, especially new ones, and can be good enough up to a few millions of active users, depending on a use case.
+
+SQL databases include: MySQL, PostgreSQL, Microsoft SQL server, Oracle, MariaDB and many more. Cloud providers like AWS, GCP and Azure include their own relational database solutions.
+
+**NoSQL** is a good choice for unstructured/non-relational data. Because unstructured data is usually self-contained and consists of independent objects with no relations, it is easier to partition, thus it is easier to scale horizontally.
+
+NoSQL / Non-Relational databases can be a good choice for large scale projects with more than few millions of active users, but since NoSQL databases lack ACID properties (NoSQL are usually eventually consistent) and relational structures, they are not the best choice as a main database for most projects on a low scale. Consider all pros and cons and choose wisely when picking a database.
+
+NoSQL databases include: MongoDB, Cassandra, Redis and many more. Cloud providers like AWS, GCP and Azure include their own non-relational database solutions.
+
+Read more:
+
+- [SQL vs. NoSQL – what’s the best option for your database needs?](https://www.thorntech.com/sql-vs-nosql/)
+- [[YouTube] How do NoSQL databases work? Simply Explained!](https://www.youtube.com/watch?v=0buKQHokLK8)
 
 #### Replication
 
@@ -487,14 +513,18 @@ Distributed systems are made up of parts which interact relatively slowly and un
 
 Below we will discuss where and why we need consistency, how to achieve it and some associated problems.
 
+Read more:
+
+- [Data Consistency Primer](<https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589800(v=pandp.10)>)
+
 ### Different views on data
 
 Sometimes there is no single piece of software that satisfies all your requirements. One database may not be enough for all your needs. Application wants to view data as [OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing), analytics team want to view it as [OLAP](https://en.wikipedia.org/wiki/Online_transaction_processing). With high loads, you may also need to give users an ability to access data very fast using [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>) or [full-text search](https://en.wikipedia.org/wiki/Full-text_search). There also may be benefit in creating connections between different data using a [graph database](https://en.wikipedia.org/wiki/Graph_database).
 
 Typically you may need to use:
 
-- Relational (SQL) databases like [MySQL](https://www.mysql.com/), [PostgreSQL](https://www.postgresql.org/) etc
-- Non-relational (NoSQL) databases like [MongoDB](https://www.mongodb.com/), [Couchbase](https://www.couchbase.com/) etc
+- Relational databases like [MySQL](https://www.mysql.com/), [PostgreSQL](https://www.postgresql.org/) etc
+- Document databases like [MongoDB](https://www.mongodb.com/), [Couchbase](https://www.couchbase.com/) etc
 - Graph databases for data with complex relations like [Neo4j](https://neo4j.com/developer/graph-database/), [dgraph](https://dgraph.io/), [ArangoDB](https://www.arangodb.com/) etc.
 - For caching you can use [Redis](https://redis.io/) or [Memcached](https://memcached.org/)
 - Search engines like [Elasticsearch](https://www.elastic.co/), [Solr](https://solr.apache.org/) etc.
@@ -506,7 +536,6 @@ Keeping writes to several storage systems in sync is necessary. Just writing to 
 Read more:
 
 - [Online analytical processing (OLAP)](https://docs.microsoft.com/en-us/azure/architecture/data-guide/relational-data/online-analytical-processing)
-- [Data Consistency Primer](<https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589800(v=pandp.10)>)
 
 ### Distributed transactions
 
