@@ -39,6 +39,7 @@ Topics and resources related to distributed systems, system design, microservice
       - [CDNs](#cdns)
     - [Coupling](#coupling)
       - [Location coupling](#location-coupling)
+        - [Broker pattern](#broker-pattern)
       - [Temporal coupling](#temporal-coupling)
         - [Message queues](#message-queues)
       - [Business data and logic coupling](#business-data-and-logic-coupling)
@@ -396,9 +397,19 @@ This can be implemented differently in different scenarios:
 - At the network layer, we can use DNS to mask the specific IP addresses of remote servers
 - Load balancers can hide that there are multiple instances of some particular system are running to service high workloads
 - Clients can hide the details of sharded database clusters
-- In application that consists of microservices, your services shouldn't know the location of each other. Instead, you can publish your commands/messages/events to a common place (like a message broker) and let other services pick it up. Now all of your services will know about a common location (message broker), but not about each other. In other words, prefer [Asynchronous communication](#asynchronous-communication).
+- When using microservices, you can use message broker (described below).
 
 Abstracting the specifics of accessing another part of the system makes application depend only on that abstraction instead of keeping bunch of locations it needs. This lets application scale better. For example, this lets you dynamically add more services and instances to the network when you need it (during peak hours) without changing anything.
+
+##### Broker pattern
+
+[Broker pattern](https://en.wikipedia.org/wiki/Broker_pattern) is used to structure distributed systems with decoupled components. These components can interact with each other by remote service invocations. A broker component is responsible for the coordination of communication among components.
+
+In application that consists of microservices, your services shouldn't know the location of each other. Instead, you can publish your commands/messages/events to a common place (like a message broker) and let other services pick it up. Now all of your services will know about a common location (message broker), but not about each other. Prefer [Asynchronous communication](#asynchronous-communication) when using message brokers.
+
+Read more:
+
+- [Broker pattern](https://medium.com/@lalosaimi/broker-pattern-297ac3cff6c5)
 
 #### Temporal coupling
 
@@ -410,7 +421,7 @@ The most common approach to breaking temporal coupling is the use of [message qu
 
 A message queue is a form of [asynchronous communication](#asynchronous-communication) used in some distributed systems (like microservices). Messages are stored on the queue until they are processed. Each message should be processed only once by a single consumer ([idempotent consumer](#idempotent-consumer)).
 
-Examples of a queue/brokers include [RabbitMQ](https://www.rabbitmq.com/) and [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
+Examples of software that includes queue possibilities: [RabbitMQ](https://www.rabbitmq.com/) and [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
 
 Read more:
 
