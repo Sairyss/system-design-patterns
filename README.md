@@ -21,7 +21,6 @@ Topics and resources related to distributed systems, system design, microservice
     - [Performance and availability](#performance-and-availability)
       - [Creating redundancy](#creating-redundancy)
       - [Autoscaling](#autoscaling)
-      - [Bulkhead pattern](#bulkhead-pattern)
       - [Load balancing](#load-balancing)
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
@@ -72,6 +71,7 @@ Topics and resources related to distributed systems, system design, microservice
   - [Other topics/patterns](#other-topicspatterns)
     - [Event Sourcing](#event-sourcing)
       - [Projections](#projections)
+    - [Bulkhead pattern](#bulkhead-pattern)
     - [Local-first software](#local-first-software)
     - [Consistent Hashing](#consistent-hashing)
       - [Hash ring](#hash-ring)
@@ -201,14 +201,6 @@ Read more:
 
 - [What is Autoscaling? How Does It Work In the Cloud – Simply Explained](https://www.scaleyourapp.com/what-is-autoscaling-how-does-it-work-in-the-cloud-simply-explained/)
 - [Kubernetes Autoscaling: 3 Methods and How to Make Them Great](https://spot.io/resources/kubernetes-autoscaling-3-methods-and-how-to-make-them-great/)
-
-#### Bulkhead pattern
-
-The Bulkhead pattern is a type of application design that is tolerant of failure. In a bulkhead architecture, elements of an application are isolated into pools so that if one fails, the others will continue to function. It’s named after the sectioned partitions (bulkheads) of a ship’s hull. If the hull of a ship is compromised, only the damaged section fills with water, which prevents the ship from sinking.
-
-Read more:
-
-- [Bulkhead pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead)
 
 #### Load balancing
 
@@ -777,6 +769,14 @@ Read more:
 
 - [Projections 1: Theory](https://www.eventstore.com/blog/projections-1-theory)
 
+### Bulkhead pattern
+
+The Bulkhead pattern is a type of application design that is tolerant of failure. In a bulkhead architecture, elements of an application are isolated into pools so that if one fails, the others will continue to function. It’s named after the sectioned partitions (bulkheads) of a ship’s hull. If the hull of a ship is compromised, only the damaged section fills with water, which prevents the ship from sinking.
+
+Read more:
+
+- [Bulkhead pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead)
+
 ### Local-first software
 
 TODO
@@ -805,7 +805,9 @@ Read more:
 
 ### Peer-to-peer
 
-TODO
+In [peer-to-peer (P2P)](https://en.wikipedia.org/wiki/Peer-to-peer), individual components are known as peers. Peers may function both as a client, requesting services from other peers, and as a server, providing services to other peers. A peer may act as a client or as a server or as both, and it can change its role dynamically with time.
+
+Peer-to-peer is used in file-sharing networks (torrents), cryptocurrency-based products like (blockchain, bitcoin), etc.
 
 #### Gossip protocol
 
