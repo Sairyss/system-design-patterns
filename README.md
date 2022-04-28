@@ -29,9 +29,9 @@ Topics and resources related to distributed systems, system design, microservice
       - [Replication](#replication)
       - [Partitioning](#partitioning)
       - [Federation](#federation)
+      - [Multitenancy](#multitenancy)
       - [Denormalization](#denormalization)
       - [Materialized views](#materialized-views)
-      - [CQRS](#cqrs)
     - [Caching](#caching)
       - [Caching strategies](#caching-strategies)
       - [Distributed caches](#distributed-caches)
@@ -70,6 +70,7 @@ Topics and resources related to distributed systems, system design, microservice
       - [Paxos](#paxos)
   - [Other topics/patterns](#other-topicspatterns)
     - [Event Sourcing](#event-sourcing)
+      - [CQRS](#cqrs)
       - [Projections](#projections)
     - [Bulkhead pattern](#bulkhead-pattern)
     - [Local-first software](#local-first-software)
@@ -289,6 +290,23 @@ Read more:
 
 - [What is a Data Federation?](https://www.tibco.com/reference-center/what-is-a-data-federation)
 
+#### Multitenancy
+
+[Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) is a software architecture in which a single instance of software runs on a server and serves multiple tenants.
+
+There are multiple tenancy models for databases:
+
+- Single federated database for all tenants
+- One database per tenant
+- Sharded multi-tenant database
+- And others
+
+Which model to choose depends on a scale of your application.
+
+Read more:
+
+- [Multi-tenant SaaS database tenancy patterns](https://docs.microsoft.com/en-us/azure/azure-sql/database/saas-tenancy-app-design-patterns?view=azuresql)
+
 #### Denormalization
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance by adding redundant copies of data.
@@ -316,18 +334,6 @@ Read more:
 
 - [Working with Materialized Views](https://docs.snowflake.com/en/user-guide/views-materialized.html#:~:text=A%20materialized%20view%20is%20a,base%20table%20of%20the%20view.)
 - [Materialized View pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view)
-
-#### CQRS
-
-CQRS stands for Command and Query Responsibility Segregation.
-
-When using CQRS we write data to a database that provides fast writing speeds, and create a copy of that data in a database that is optimized for reads. Commands are forwarded to a write database, queries are forwarded to a read database. This can improve read and write performance of your application.
-
-CQRS is a great fit when used together with [Event Sourcing](#event-sourcing).
-
-Read more:
-
-- [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 
 ### Caching
 
@@ -759,6 +765,20 @@ Read more:
 
 - [Event sourcing pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
 - [Event immutability and dealing with change](https://www.eventstore.com/blog/event-immutability-and-dealing-with-change)
+
+#### CQRS
+
+CQRS stands for Command and Query Responsibility Segregation.
+
+When using CQRS we write data to a database that provides fast writing speeds, and create a copy of that data in a database that is optimized for reads. Commands are forwarded to a write database, queries are forwarded to a read database. This can improve read and write performance of your application.
+
+Your application can be separated into commands and queries using CQS pattern, you can read about it and see code examples here: [Commands and Queries](https://github.com/Sairyss/domain-driven-hexagon#commands-and-queries)
+
+CQRS is a great fit when used together with Event Sourcing, but can also be used without it.
+
+Read more:
+
+- [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 
 #### Projections
 
