@@ -77,6 +77,9 @@ Topics and resources related to distributed systems, system design, microservice
       - [Hash ring](#hash-ring)
     - [Peer-to-peer](#peer-to-peer)
       - [Gossip protocol](#gossip-protocol)
+      - [Distributed Hash Table (DHT)](#distributed-hash-table-dht)
+        - [Kademlia](#kademlia)
+        - [Chord](#chord)
     - [OSI Model](#osi-model)
   - [More resources](#more-resources)
     - [Books](#books)
@@ -816,6 +819,30 @@ Peer-to-peer is used in file-sharing networks (torrents), cryptocurrency-based p
 Read more:
 
 - [[YouTube] Parallel & Distributed Computing - Gossip Protocol](https://www.youtube.com/watch?v=qJpPjzg44R8)
+
+#### Distributed Hash Table (DHT)
+
+[Distributed Hash Table](https://en.wikipedia.org/wiki/Distributed_hash_table) is a distributed system / decentralized data store that provides a lookup service based on key-value pairs similar to [hash tables](https://en.wikipedia.org/wiki/Hash_table). DHT provides an easy way to find information in a large collection of data because all keys are in a consistent format, and the entire set of keys can be partitioned in a way that allows fast identification on where the key/value pair resides.
+
+Read more:
+
+- [Distributed Hash Tables: Architecture and Implementation](https://www.usenix.org/legacy/publications/library/proceedings/osdi2000/full_papers/gribble/gribble_html/node4.html)
+
+##### Kademlia
+
+[Kademlia](https://en.wikipedia.org/wiki/Kademlia) is a distributed hash table for decentralized peer-to-peer computer networks.
+
+Kademlia provides a way for large amount of computers to self-organize into a network, communicate with other computers on the network, and share resources (like files and blobs).
+
+Kademlia is used by projects like [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent), [IPFS](https://en.wikipedia.org/wiki/InterPlanetary_File_System), [Ethereum](https://en.wikipedia.org/wiki/Ethereum), [I2P](https://en.wikipedia.org/wiki/I2P), and others.
+
+Read more:
+
+- [Distributed Hash Tables with Kademlia](https://codethechange.stanford.edu/guides/guide_kademlia.html)
+
+##### Chord
+
+[Chord](<https://en.wikipedia.org/wiki/Chord_(peer-to-peer)>) is a protocol and algorithm for a peer-to-peer distributed hash table.
 
 ### OSI Model
 
