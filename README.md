@@ -58,8 +58,8 @@ Topics and resources related to distributed systems, system design, microservice
     - [Dual writes problem](#dual-writes-problem)
       - [The Outbox Pattern](#the-outbox-pattern)
       - [Retrying failed steps](#retrying-failed-steps)
-    - [Change Data Capture](#change-data-capture)
     - [Idempotent consumer](#idempotent-consumer)
+    - [Change Data Capture](#change-data-capture)
     - [Time inconsistencies](#time-inconsistencies)
       - [Lamport timestamps](#lamport-timestamps)
       - [Vector clocks](#vector-clocks)
@@ -618,7 +618,7 @@ await database.save(user);
 await eventBus.publish(userCreatedEvent);
 ```
 
-Something can happen in between those operations (a network lag, process restart, event broker crash, etc.) so the second operation will fail resulting in a loss of data. This problem is called "dual writes problem". Dual writes are unsafe and can lead to data inconsistencies. This scenario can happen if you have multiple asynchronous operations executing one by one in a single place, so you should design your system to execute only one such operation at a time, or have some process that guarantees consistency.
+Something can happen in between those operations (a network lag, process restart, event broker crash, etc.) so the second operation can fail resulting in a loss of data. This problem is called "dual writes problem". Dual writes are unsafe and can lead to data inconsistencies. This scenario can happen if you have multiple asynchronous operations executing one by one in a single place, so you should design your system to execute only one such operation at a time, or have some process that guarantees consistency.
 
 There are multiple techniques to avoid dual writes, like Outbox Pattern and Retrying failed steps. We describe them in details below.
 
@@ -654,28 +654,13 @@ await database.save(movie);
 await externalAPI.index(movie);
 ```
 
-What if your application crashes in the middle of this operation, or if external API is unavailable? A movie will be saved to a local database, but not indexed in an external API.
+What if your application crashes in the middle of this operation, or if external API is unavailable? Data will be saved to a local database, but not indexed in an external API.
 
-One of the ways to solve this is to have a periodic job that queries the database every X minutes and retries indexing movies that were not indexed.
+One of the ways to solve this is to have a periodic job that queries the database every X minutes and retries indexing data that was not indexed.
 
 You can see this implemented in code in this repo: [Fullstack application example](https://github.com/Sairyss/full-stack-application-example/tree/master/apps/api/src/app/modules) - check out a movie and indexer services. Movie is saved as `indexed: false` by default and indexer service has a `@Interval()` decorator meaning that it is executed periodically to make sure that if something failed during indexing it will be retried later (meaning it is eventually consistent).
 
 One important detail: when retrying make sure your consumers are [idempotent](#idempotent-consumer).
-
-### Change Data Capture
-
-[Change data capture (CDC)](https://en.wikipedia.org/wiki/Change_data_capture) is a pattern that tracks changes to data in a database and provides real-time movement of data allowing to process it continuously as new database events occur.
-
-CDC is one of the techniques that can help with data consistency when you deal with multiple storages.
-
-Databases usually append changes to its tables/documents to a [log data structure](https://scaling.dev/storage/log) to keep track of what's happening (usually called change logs, commit logs or [transaction logs](https://docs.microsoft.com/en-us/sql/relational-databases/logs/the-transaction-log-sql-server?view=sql-server-ver15)). We can utilize that log to duplicate changes from a main database to other databases in a consistent manner (because simply saving data to multiple databases at once is not safe and leads to inconsistency).
-
-When data crosses the boundary between different technologies, asynchronous event log with [idempotent writes](#idempotent-consumer) is reliable and robust solution.
-
-Read more:
-
-- [Change Data Capture (CDC): What it is and How it Works](https://www.striim.com/change-data-capture-cdc-what-it-is-and-how-it-works/)
-- [Domain Events versus Change Data Capture](https://kislayverma.com/software-architecture/domain-events-versus-change-data-capture/)
 
 ### Idempotent consumer
 
@@ -694,6 +679,21 @@ Read more:
 - [Pattern: Idempotent Consumer](https://microservices.io/patterns/communication-style/idempotent-consumer.html)
 - [Idempotent receiver](https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html)
 - [Idempotency Patterns](https://blog.jonathanoliver.com/idempotency-patterns/)
+
+### Change Data Capture
+
+[Change data capture (CDC)](https://en.wikipedia.org/wiki/Change_data_capture) is a pattern that tracks changes to data in a database and provides real-time movement of data allowing to process it continuously as new database events occur.
+
+CDC is one of the techniques that can help with data consistency when you deal with multiple storages.
+
+Databases usually append changes to its tables/documents to a [log data structure](https://scaling.dev/storage/log) to keep track of what's happening (usually called change logs, commit logs or [transaction logs](https://docs.microsoft.com/en-us/sql/relational-databases/logs/the-transaction-log-sql-server?view=sql-server-ver15)). We can utilize that log to duplicate changes from a main database to other databases in a consistent manner (because simply saving data to multiple databases at once is not safe and leads to inconsistency).
+
+When data crosses the boundary between different technologies, asynchronous event log with [idempotent writes](#idempotent-consumer) is reliable and robust solution.
+
+Read more:
+
+- [Change Data Capture (CDC): What it is and How it Works](https://www.striim.com/change-data-capture-cdc-what-it-is-and-how-it-works/)
+- [Domain Events versus Change Data Capture](https://kislayverma.com/software-architecture/domain-events-versus-change-data-capture/)
 
 ### Time inconsistencies
 
