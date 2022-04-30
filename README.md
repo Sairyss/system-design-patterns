@@ -660,7 +660,7 @@ One of the ways to solve this is to have a periodic job that queries the databas
 
 You can see this implemented in code in this repo: [Fullstack application example](https://github.com/Sairyss/full-stack-application-example/tree/master/apps/api/src/app/modules) - check out a movie and indexer services. Movie is saved as `indexed: false` by default and indexer service has a `@Interval()` decorator meaning that it is executed periodically to make sure that if something failed during indexing it will be retried later (meaning it is eventually consistent).
 
-One important detail: when retrying make sure your consumers are [idempotent](#idempotent-consumer).
+One important detail: when retrying make sure your consumers are idempotent.
 
 ### Idempotent consumer
 
