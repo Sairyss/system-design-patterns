@@ -55,7 +55,7 @@ Topics and resources related to distributed systems, system design, microservice
         - [Orchestration](#orchestration)
         - [Choreography](#choreography)
         - [Process manager](#process-manager)
-    - [Dual write problems](#dual-write-problems)
+    - [Dual writes problem](#dual-writes-problem)
       - [The Outbox Pattern](#the-outbox-pattern)
       - [Retrying failed steps](#retrying-failed-steps)
     - [Change Data Capture](#change-data-capture)
@@ -607,7 +607,7 @@ Process managers are state machines that store some state, while sagas usually d
 
 - [Saga vs. Process Manager](https://blog.devarchive.net/2015/11/saga-vs-process-manager.html?m=1)
 
-### Dual write problems
+### Dual writes problem
 
 A dual write describes the situation when you change data in 2 systems, e.g., a database and Apache Kafka, without an additional layer that ensures data consistency over both services.
 
@@ -618,9 +618,9 @@ await database.save(user);
 await eventBus.publish(userCreatedEvent);
 ```
 
-Something can happen in between those operations (a network lag, process restart, event broker crash etc.) so the second operation will fail resulting in a loss of data. This problem is called "dual writes problem". Dual writes are unsafe and can lead to data inconsistencies. This scenario can happen if you have multiple asynchronous operations executing one by one in a single place, so you should design your system to execute only one such operation at a time, or have some process that guarantees consistency.
+Something can happen in between those operations (a network lag, process restart, event broker crash, etc.) so the second operation will fail resulting in a loss of data. This problem is called "dual writes problem". Dual writes are unsafe and can lead to data inconsistencies. This scenario can happen if you have multiple asynchronous operations executing one by one in a single place, so you should design your system to execute only one such operation at a time, or have some process that guarantees consistency.
 
-Some of the techniques for to avoid dual writes are described below.
+There are multiple techniques to avoid dual writes, like Outbox Pattern and Retrying failed steps. We describe them in details below.
 
 Read more:
 
