@@ -618,7 +618,7 @@ await database.save(user);
 await eventBus.publish(userCreatedEvent);
 ```
 
-Something can happen in between those operations (a network lag, process restart, event broker crash etc.) so the second operation will fail resulting in a loss of data. This problem is called "dual writes problem". Dual writes are unsafe and can lead to data inconsistencies - data in one microservice is saved, but not indexed (1st example) or other microservices are not notified since the event was lost (2nd example). This scenario can happen if you have multiple asynchronous operations executing one by one in a single place, so you should design your system to execute only one such operation at a time, or have some process that guarantees consistency.
+Something can happen in between those operations (a network lag, process restart, event broker crash etc.) so the second operation will fail resulting in a loss of data. This problem is called "dual writes problem". Dual writes are unsafe and can lead to data inconsistencies. This scenario can happen if you have multiple asynchronous operations executing one by one in a single place, so you should design your system to execute only one such operation at a time, or have some process that guarantees consistency.
 
 Some of the techniques for to avoid dual writes are described below.
 
