@@ -55,6 +55,7 @@ Topics and resources related to distributed systems, system design, microservice
         - [Orchestration](#orchestration)
         - [Choreography](#choreography)
         - [Process manager](#process-manager)
+    - [Workflow Engines](#workflow-engines)
     - [Dual writes problem](#dual-writes-problem)
       - [The Outbox Pattern](#the-outbox-pattern)
       - [Retrying failed steps](#retrying-failed-steps)
@@ -117,7 +118,7 @@ When changes occur, you need some way to reconcile changes across the different 
 Ideally, you should try to minimize the communication between the distributed systems. But it is not always possible.
 In microservices world, prefer asynchronous communication since it is better suited for communication between microservices than synchronous. The goal of each microservice is to be autonomous. If one of the microservices is down that shouldn't affect other microservices. Asynchronous protocols help with that. This topic is discussed more in details below in [coupling](#coupling) section.
 
-Read more:
+References:
 
 - [Asynchronous message-based communication](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/asynchronous-message-based-communication)
 - [RabbitMQ publish/subscribe pattern](https://www.rabbitmq.com/tutorials/tutorial-three-javascript.html)
@@ -139,7 +140,7 @@ Some pros for using a schema and serializing data include:
 - Provides interoperability with other languages (language agnostic).
 - Provides forward and backward-compatible schema for your messages/events
 
-Read more:
+References:
 
 - [Why Use gRPC and Thrift for Remote Procedure Calls](https://dzone.com/articles/why-use-grpc-and-thrift-for-remote-procedure-calls?fromrel=true)
 - [The best serialization strategy for Event Sourcing](https://blog.softwaremill.com/the-best-serialization-strategy-for-event-sourcing-9321c299632b)
@@ -164,7 +165,7 @@ Api Gateway can also handle:
 - Analytics and monitoring for your API calls
 - and much more
 
-Read more:
+References:
 
 - [Pattern: API Gateway / Backends for Frontends](https://microservices.io/patterns/apigateway.html)
 - [Building Microservices: Using an API Gateway](https://www.nginx.com/blog/building-microservices-using-an-api-gateway/)
@@ -201,7 +202,7 @@ Redundancy can improve flexibility, reliability, availability, scalability and p
 
 [Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used in cloud computing that dynamically adjusts the amount of computational resources in a server based on the load.
 
-Read more:
+References:
 
 - [What is Autoscaling? How Does It Work In the Cloud – Simply Explained](https://www.scaleyourapp.com/what-is-autoscaling-how-does-it-work-in-the-cloud-simply-explained/)
 - [Kubernetes Autoscaling: 3 Methods and How to Make Them Great](https://spot.io/resources/kubernetes-autoscaling-3-methods-and-how-to-make-them-great/)
@@ -223,7 +224,7 @@ Level 7 load balancing deals with the actual content of each message enabling th
 
 Load balancing can be done by an [api gateway](#api-gateway) / [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
 
-Read more:
+References:
 
 - [System Design — Load Balancing](https://medium.com/must-know-computer-science/system-design-load-balancing-1c2e7675fc27)
 - [What Is Layer 4 Load Balancing?](https://www.nginx.com/resources/glossary/layer-4-load-balancing/)
@@ -252,7 +253,7 @@ NoSQL / Non-Relational databases can be a good choice for large scale projects w
 
 NoSQL databases include: MongoDB, Cassandra, Redis and many more. Cloud providers like AWS, GCP and Azure include their own non-relational database solutions.
 
-Read more:
+References:
 
 - [SQL vs. NoSQL – what’s the best option for your database needs?](https://www.thorntech.com/sql-vs-nosql/)
 - [[YouTube] How do NoSQL databases work? Simply Explained!](https://www.youtube.com/watch?v=0buKQHokLK8)
@@ -263,7 +264,7 @@ Read more:
 
 Having multiple copies of data can improve read performance, availability, prevent disasters in cases when one of the databases loses it's data.
 
-Read more:
+References:
 
 - [Read Consistency with Database Replicas](https://shopify.engineering/read-consistency-database-replicas)
 
@@ -271,7 +272,7 @@ Read more:
 
 [Partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a division of a database into distinct independent parts. When you have large amounts of data that don't fit into one database partitioning is a logical next step to improve scalability.
 
-Read more:
+References:
 
 - [Data partitioning guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning)
 - [Sharding pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/sharding)
@@ -286,7 +287,7 @@ Downsides of this approach:
 - Joining data from multiple databases will be much harder.
 - More complexity in code and infrastructure.
 
-Read more:
+References:
 
 - [What is a Data Federation?](https://www.tibco.com/reference-center/what-is-a-data-federation)
 
@@ -303,7 +304,7 @@ There are multiple tenancy models for databases:
 
 Which model to choose depends on a scale of your application.
 
-Read more:
+References:
 
 - [Multi-tenant SaaS database tenancy patterns](https://docs.microsoft.com/en-us/azure/azure-sql/database/saas-tenancy-app-design-patterns?view=azuresql)
 
@@ -311,7 +312,7 @@ Read more:
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance by adding redundant copies of data.
 
-Read more:
+References:
 
 - [Denormalization in Databases](https://www.geeksforgeeks.org/denormalization-in-databases/)
 - [Building robust distributed systems](https://kislayverma.com/software-architecture/building-robust-distributed-systems/)
@@ -330,7 +331,7 @@ Result of this `SELECT` statement will be stored as a view so every time you que
 
 Materialized views can improve performance, but data may be outdated since refreshing a view can be an expensive operation that is only done periodically (for example once a day). This is great for some things like daily statistics, but not good enough for real time systems.
 
-Read more:
+References:
 
 - [Working with Materialized Views](https://docs.snowflake.com/en/user-guide/views-materialized.html#:~:text=A%20materialized%20view%20is%20a,base%20table%20of%20the%20view.)
 - [Materialized View pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view)
@@ -350,7 +351,7 @@ There are several caching strategies worth knowing. Most common are:
 - Write-behind
 - Refresh-ahead
 
-Read more:
+References:
 
 - [Caching guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/caching)
 - [Database Caching Strategies Using Redis](https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/database-challenges.html)
@@ -360,7 +361,7 @@ Read more:
 
 A [distributed cache](https://en.wikipedia.org/wiki/Distributed_cache#:~:text=In%20computing%2C%20a%20distributed%20cache,database%20and%20web%20session%20data.) is an extension of the cache from a single server to multiple servers. A distributed cache can improve the performance and scalability of the system.
 
-Read more:
+References:
 
 - [Distributed cache system design](https://medium.com/system-design-concepts/distributed-cache-system-design-9560f7dd07f2)
 - [Architecture Patterns: Caching (Part-2)](https://kislayverma.com/software-architecture/architecture-patterns-caching-part-2/)
@@ -373,7 +374,7 @@ A CDN allows for the quick transfer of assets needed for loading Internet conten
 
 CDN can increase content availability, redundancy, improve website load times.
 
-Read more:
+References:
 
 - [What is a CDN?](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/)
 
@@ -408,7 +409,7 @@ Abstracting the specifics of accessing another part of the system makes applicat
 
 In application that consists of microservices, your services shouldn't know the location of each other. Instead, you can publish your commands/messages/events to a common place (like a message broker) and let other services pick it up. Now all of your services will know about a common location (message broker), but not about each other. Prefer [Asynchronous communication](#asynchronous-communication) when using message brokers.
 
-Read more:
+References:
 
 - [Broker pattern](https://medium.com/@lalosaimi/broker-pattern-297ac3cff6c5)
 
@@ -424,7 +425,7 @@ A message queue is a form of [asynchronous communication](#asynchronous-communic
 
 Examples of software that includes queue possibilities: [RabbitMQ](https://www.rabbitmq.com/) and [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
 
-Read more:
+References:
 
 - [System Design — Message Queues](https://medium.com/must-know-computer-science/system-design-message-queues-245612428a22)
 - [Queue-Based Load Leveling pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling)
@@ -452,7 +453,7 @@ Your components must be independently deployable. In a microservices world, if d
 
 This architecture reduces coupling, scales better, simplifies upgrades preventing downtime, eliminates single points of failure, allowing the overall system to continue operating despite failures in individual nodes, etc.
 
-Read more:
+References:
 
 - [Shared Nothing Architecture Explained](https://phoenixnap.com/kb/shared-nothing-architecture)
 
@@ -464,7 +465,7 @@ This approach reduces coupling, runtime dependency, improve latency and makes sy
 
 Data that is frequently accessed but changes regularly can be cached temporarily with periodic cache refreshes. Data that changes less frequently or never can be stored in our system's database directly.
 
-Read more:
+References:
 
 - [Querying data across microservices](https://medium.com/@john_freeman/querying-data-across-microservices-8d7a4667668a)
 
@@ -476,7 +477,7 @@ Using asynchronous communication and event-driven architecture ensures loose-cou
 
 TODO
 
-Read more:
+References:
 
 - [Why Microservices Should Be Event Driven: Autonomy vs Authority](https://www.google.com/search?client=firefox-b-d&q=consistent+hashing)
 - [Using Events to build evolutionary architectures](https://kislayverma.com/software-architecture/using-events-to-build-evolutionary-architectures/)
@@ -494,7 +495,7 @@ The idea of subscribing for changes instead of querying opens a bunch of new pos
 
 For typical data centric or CRUD services there may be not a lot of benefit designing an entire application using this approach, but some parts of your application can definitely benefit from it.
 
-Read more:
+References:
 
 - [6 Event-Driven Architecture Patterns — Part 1](https://medium.com/wix-engineering/6-event-driven-architecture-patterns-part-1-93758b253f47)
 
@@ -511,7 +512,7 @@ Same as changing a single number in a spreadsheet column will change the output 
 
 By combining techniques like [Event-driven Architecture](#event-driven-architecture) and [Selective Data Replication](#selective-data-replication) we can achieve interesting results.
 
-Read more:
+References:
 
 - [Designing Data-Intensive Applications](https://dataintensive.net/) chapter: "Designing applications around dataflow"
 
@@ -525,7 +526,7 @@ Distributed systems are made up of parts which interact relatively slowly and un
 
 Below we will discuss where and why we need consistency, how to achieve it and some associated problems.
 
-Read more:
+References:
 
 - [Data Consistency Primer](<https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589800(v=pandp.10)>)
 
@@ -545,7 +546,7 @@ When there is no single storage solution that satisfies all your needs, you may 
 
 Keeping writes to several storage systems in sync is necessary. Just writing to multiple databases without any additional layer that ensures consistency is a naive approach that can lead to dual-write problems and inconsistencies. We will discuss techniques and patterns that can help reliably replicate data to multiple storages in the next sections.
 
-Read more:
+References:
 
 - [Online analytical processing (OLAP)](https://docs.microsoft.com/en-us/azure/architecture/data-guide/relational-data/online-analytical-processing)
 
@@ -565,7 +566,7 @@ In a typical non-distributed application, you can use database transactions to a
 - It is slow and affects performance of participating systems
 - It creates coupling between systems
 
-Read more:
+References:
 
 - [Two Phase Commit](https://martinfowler.com/articles/patterns-of-distributed-systems/two-phase-commit.html)
 
@@ -575,7 +576,7 @@ In modern distributed systems, eventual consistency is preferred because it scal
 
 One of the patterns for this is Sagas. A saga is a sequence of local transactions, but unlike 2PC, each transaction commits immediately, without waiting for other participants to finish. This way, all transactions will be committed asynchronously(eventually). Each participant must have a compensating mechanism to revert a saga, so if one of the participants fails, saga should start a revert process to undo all the changes.
 
-Read more:
+References:
 
 - [Pattern: Saga](https://microservices.io/patterns/data/saga.html)
 - [Saga distributed transactions](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/saga/saga)
@@ -601,7 +602,7 @@ Choreography in some cases may be harder to scale with growing business needs an
 
 A lot of systems use both orchestration and choreography depending on the use case, you don't necessarily need to choose just one. Pick the right tools for the job.
 
-Read more:
+References:
 
 - [Microservice Orchestration Vs Choreography](https://softobiz.com/microservice-orchestration-vs-choreography/)
 
@@ -614,6 +615,23 @@ Process manager is very similar to Orchestrator. In fact, a lot of people use th
 Process managers are state machines that store some state, while sagas usually don't have a state and operate only on data that they receive in events.
 
 - [Saga vs. Process Manager](https://blog.devarchive.net/2015/11/saga-vs-process-manager.html?m=1)
+
+### Workflow Engines
+
+Workflow engines are [workflow management systems](https://en.wikipedia.org/wiki/Workflow_management_system) that provide us a way to orchestrate microservices or data flows (like [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load)). They allow us to define a set of tasks that need to be executed and gives tooling that can help visualize flows (as diagrams and/or [Directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph)) and handle workflow monitoring, logging, retries, handling failures, scheduling, etc.
+
+Workflow engines:
+
+- [Apache Airflow](https://github.com/apache/airflow) - is a platform to programmatically author, schedule, and monitor workflows.
+- [Google cloud workflows](https://cloud.google.com/workflows) - easily build reliable applications, process automation, data and machine learning pipelines.
+- [Camuda](https://camunda.com) - The Universal Process Orchestrator
+- [Prefect](https://www.prefect.io/) - Python based. Build, run, and monitor data pipelines at scale
+- [Conductor](https://en.wikipedia.org/wiki/Extract,_transform,_load) - Workflow Orchestration engine that runs in the cloud.
+
+References:
+
+- [[YouTube] Prefect Tutorial | Indestructible Python Code](https://youtu.be/0IcN117E4Xo)
+- [Awesome workflow engines](https://github.com/meirwah/awesome-workflow-engines)
 
 ### Dual writes problem
 
@@ -630,7 +648,7 @@ Something can happen in between those operations (a network lag, process restart
 
 There are multiple techniques to avoid dual writes, like Outbox Pattern and Retrying failed steps. We describe them in details below.
 
-Read more:
+References:
 
 - [Dual Writes – The Unknown Cause of Data Inconsistencies](https://thorben-janssen.com/dual-writes/)
 
@@ -646,7 +664,7 @@ This way we can be sure that no message/event is lost and will be published even
 
 **Note**: when using [Event Sourcing](#event-sourcing) you may not need an Outbox Pattern since all the changes are stored as events anyway.
 
-Read more:
+References:
 
 - [Pattern: Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html)
 - [The Outbox Pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/)
@@ -682,7 +700,7 @@ One of the most used ways to make consumers idempotent is saving some kind of an
 
 You can go even further and prevent idempotency and duplication issues from end to end, starting from your application's clients. You can generate an idempotency token (like UUID/GUID) on a client side (lets say on a web page), send it together with a request and propagate it through your entire system. This way even if a client sends a request twice by accident (for example by refreshing a web page with filled-in form) the operation will be executed only once (if you have an Idempotent consumer).
 
-Read more:
+References:
 
 - [Pattern: Idempotent Consumer](https://microservices.io/patterns/communication-style/idempotent-consumer.html)
 - [Idempotent receiver](https://martinfowler.com/articles/patterns-of-distributed-systems/idempotent-receiver.html)
@@ -698,7 +716,7 @@ Databases usually append changes to its tables/documents to a [log data structur
 
 When data crosses the boundary between different technologies, asynchronous event log with [idempotent writes](#idempotent-consumer) is reliable and robust solution.
 
-Read more:
+References:
 
 - [Change Data Capture (CDC): What it is and How it Works](https://www.striim.com/change-data-capture-cdc-what-it-is-and-how-it-works/)
 - [Domain Events versus Change Data Capture](https://kislayverma.com/software-architecture/domain-events-versus-change-data-capture/)
@@ -713,7 +731,7 @@ Below we will discuss few patterns to deal with that.
 
 [Lamport timestamp](https://en.wikipedia.org/wiki/Lamport_timestamp) algorithm is a simple logical clock algorithm used to determine the order of events in a distributed computer system.
 
-Read more:
+References:
 
 - [Lamport Clock](https://martinfowler.com/articles/patterns-of-distributed-systems/lamport-clock.html)
 - [The trouble with timestamps](https://aphyr.com/posts/299-the-trouble-with-timestamps)
@@ -722,7 +740,7 @@ Read more:
 
 [Vector clock](https://en.wikipedia.org/wiki/Vector_clock) is a data structure used for determining the partial ordering of events in a distributed system and detecting causality violations.
 
-Read more:
+References:
 
 - [Vector Clocks in Distributed Systems](https://www.geeksforgeeks.org/vector-clocks-in-distributed-systems/)
 - [Vector Clocks](https://sookocheff.com/post/time/vector-clocks/)
@@ -731,7 +749,7 @@ Read more:
 
 [Conflict-free replicated data type (CRDT)](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type) is a data structure which can be replicated across multiple computers in a network, where the replicas can be updated independently and concurrently without coordination between the replicas, and where it is always mathematically possible to resolve inconsistencies that might come up.
 
-Read more:
+References:
 
 - [crdt.tech](https://crdt.tech/)
 - [Automerge](https://github.com/automerge/automerge) - JavaScript library of data structures based on CRDTs for building collaborative applications
@@ -750,7 +768,7 @@ TODO
 
 TODO
 
-Read more:
+References:
 
 - [The Raft Consensus Algorithm](https://raft.github.io/)
 
@@ -769,7 +787,7 @@ This is valuable when auditing is needed, for example when dealing with money tr
 
 TODO
 
-Read more:
+References:
 
 - [Event sourcing pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
 - [Event immutability and dealing with change](https://www.eventstore.com/blog/event-immutability-and-dealing-with-change)
@@ -784,7 +802,7 @@ Your application can be separated into commands and queries using CQS pattern, y
 
 CQRS is a great fit when used together with Event Sourcing, but can also be used without it.
 
-Read more:
+References:
 
 - [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 
@@ -796,7 +814,7 @@ With projections you can create as many views on your data as you want. Projecti
 
 Usually you would subscribe to a stream of events and change projection state when any event happens. A naive approach would be to change projection state in the database directly by executing a query for each event, but this will be very slow during replays. To make projections performant during replays consider loading a batch of events and changing state in-memory first using reducer/left-fold operation combined with [pure functions](https://en.wikipedia.org/wiki/Pure_function) and some patterns like [identity map](https://www.sourcecodeexamples.net/2018/04/identity-map-pattern.html), then execute all queries in batches instead of doing it one by one.
 
-Read more:
+References:
 
 - [Projections 1: Theory](https://www.eventstore.com/blog/projections-1-theory)
 
@@ -804,7 +822,7 @@ Read more:
 
 The Bulkhead pattern is a type of application design that is tolerant of failure. In a bulkhead architecture, elements of an application are isolated into pools so that if one fails, the others will continue to function. It’s named after the sectioned partitions (bulkheads) of a ship’s hull. If the hull of a ship is compromised, only the damaged section fills with water, which prevents the ship from sinking.
 
-Read more:
+References:
 
 - [Bulkhead pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/bulkhead)
 
@@ -812,7 +830,7 @@ Read more:
 
 TODO
 
-Read more:
+References:
 
 - [Local-first software](https://www.inkandswitch.com/local-first/)
 
@@ -822,7 +840,7 @@ Read more:
 
 TODO
 
-Read more:
+References:
 
 - [Consistent Hashing](https://medium.com/system-design-blog/consistent-hashing-b9134c8a9062)
 
@@ -830,7 +848,7 @@ Read more:
 
 TODO
 
-Read more:
+References:
 
 - [Consistent Hash Rings Explained Simply](https://akshatm.svbtle.com/consistent-hash-rings-theory-and-implementation)
 
@@ -844,7 +862,7 @@ Peer-to-peer is used in file-sharing networks (torrents), cryptocurrency-based p
 
 [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) is a peer-to-peer communication mechanism that allows designing highly efficient distributed communication systems (P2P).
 
-Read more:
+References:
 
 - [[YouTube] Parallel & Distributed Computing - Gossip Protocol](https://www.youtube.com/watch?v=qJpPjzg44R8)
 
@@ -852,7 +870,7 @@ Read more:
 
 [Distributed Hash Table](https://en.wikipedia.org/wiki/Distributed_hash_table) is a distributed system / decentralized data store that provides a lookup service based on key-value pairs similar to [hash tables](https://en.wikipedia.org/wiki/Hash_table). DHT provides an easy way to find information in a large collection of data because all keys are in a consistent format, and the entire set of keys can be partitioned in a way that allows fast identification on where the key/value pair resides.
 
-Read more:
+References:
 
 - [Distributed Hash Tables: Architecture and Implementation](https://www.usenix.org/legacy/publications/library/proceedings/osdi2000/full_papers/gribble/gribble_html/node4.html)
 
@@ -864,7 +882,7 @@ Kademlia provides a way for large amount of computers to self-organize into a ne
 
 Kademlia is used by projects like [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent), [IPFS](https://en.wikipedia.org/wiki/InterPlanetary_File_System), [Ethereum](https://en.wikipedia.org/wiki/Ethereum), [I2P](https://en.wikipedia.org/wiki/I2P), and others.
 
-Read more:
+References:
 
 - [Distributed Hash Tables with Kademlia](https://codethechange.stanford.edu/guides/guide_kademlia.html)
 
@@ -888,7 +906,7 @@ It is a 7 layer architecture with each layer having specific functionality to pe
 6. Presentation - data from the application layer is extracted here and manipulated as per the required format to transmit over the network
 7. Application - this layer is implemented by the network applications
 
-Read more:
+References:
 
 - [OSI Model Layers and Protocols in Computer Network](https://www.guru99.com/layers-of-osi-model.html#:~:text=OSI%20model%20is%20a%20layered,mostly%20implemented%20only%20in%20software.)
 
