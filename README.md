@@ -589,9 +589,17 @@ Orchestrator is responsible for executing each step in a flow and ensuring consi
 
 ##### Choreography
 
-Choreography is a decentralized approach. Unlike orchestration, when using choreography there is no central place that coordinates workflows. Each part of the system is responsible for subscribing to events it needs. This way data just flows through the system from one part of the system to another.
+Choreography is a decentralized peer-to-peer approach. Unlike orchestration, when using choreography there is no central place that coordinates workflows. Each part of the system is responsible for subscribing to events it needs. This way data just flows through the system from one part of the system to another.
 
-Choreography is flexible and doesn't create much coupling (unlike Orchestration), but it can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using a orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place. This might create some coupling, but is easier to maintain. A lot of systems use both orchestration and choreography depending on the use case, you don't necessarily need to choose just one. Pick the right tools for the job.
+Choreography is flexible, but it can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using an orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place.
+
+Choreography in some cases may be harder to scale with growing business needs and complexities. Pub/sub model works for simplest of the flows, but has some issues when the complexity grows:
+
+- Process flows are “embedded” within the code of multiple applications
+- Often there is tight coupling and assumptions around input/output, [Service Level Agreements (SLA)](https://en.wikipedia.org/wiki/Service-level_agreement), event schemas, etc., making it harder to adapt to changing needs.
+- Hard to track steps and overall status of the workflow
+
+A lot of systems use both orchestration and choreography depending on the use case, you don't necessarily need to choose just one. Pick the right tools for the job.
 
 Read more:
 
