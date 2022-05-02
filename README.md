@@ -586,19 +586,21 @@ References:
 
 Orchestration is a centralized approach. Parts of the system that are participating in a workflow are controlled by a single entity called Orchestrator, which is responsible for executing each step in a flow and ensuring consistency of the entire operation.
 
-Orchestration works nicely for complex workflows with a lot of steps since it is easy to keep track of an entire flow in one place.
+Orchestrated flows are explicit. It works nicely for complex workflows with a lot of steps since it is easy to keep track of an entire flow in one place.
 
 ##### Choreography
 
 Choreography is a decentralized peer-to-peer approach. Unlike orchestration, when using choreography there is no central place that coordinates workflows. Each part of the system is responsible for subscribing to events it needs. This way data just flows through the system from one part of the system to another.
 
-Choreography is flexible, but it can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using an orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place.
+Choreography is flexible, but the flow is implicit chain of events that can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using an orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place.
 
 Choreography in some cases may be harder to scale with growing business needs and complexities. Pub/sub model works for simple flows, but has some issues when the complexity grows:
 
 - Process flows are “embedded” within the code of multiple applications
 - Often there is tight coupling and assumptions around input/output, [Service Level Agreements (SLA)](https://en.wikipedia.org/wiki/Service-level_agreement), event schemas, etc., making it harder to adapt to changing needs.
-- Hard to track steps and overall status of the workflow
+- You lose sight of the larger scale flow. It is hard to track steps and overall status of the workflow
+
+To solve some of these problems you could use a [workflow engine](#workflow-engines) reading all the events in a flow and check if they can be correlated to a tracking flow.
 
 A lot of systems use both orchestration and choreography depending on the use case, you don't necessarily need to choose just one. Pick the right tools for the job.
 
@@ -624,12 +626,16 @@ Workflow engines:
 
 - [Apache Airflow](https://github.com/apache/airflow) - is a platform to programmatically author, schedule, and monitor workflows.
 - [Google cloud workflows](https://cloud.google.com/workflows) - easily build reliable applications, process automation, data and machine learning pipelines.
-- [Camuda](https://camunda.com) - The Universal Process Orchestrator
+- [Camunda](https://camunda.com) - The Universal Process Orchestrator
 - [Prefect](https://www.prefect.io/) - Python based. Build, run, and monitor data pipelines at scale
 - [Conductor](https://netflix.github.io/conductor/) - Workflow Orchestration engine that runs in the cloud.
 
+You can build [Business Process Model and Notation (BPMN)](https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation) diagrams for your workflows using tooling provided by <https://bpmn.io/>
+
 References:
 
+- [The Microservices Workflow Automation Cheat Sheet](https://blog.bernd-ruecker.com/the-microservice-workflow-automation-cheat-sheet-fc0a80dc25aa?gi=b977a74ee087)
+- [Architecture options to run a workflow engine](https://blog.bernd-ruecker.com/architecture-options-to-run-a-workflow-engine-6c2419902d91)
 - [[YouTube] Prefect Tutorial | Indestructible Python Code](https://youtu.be/0IcN117E4Xo)
 - [Awesome workflow engines](https://github.com/meirwah/awesome-workflow-engines)
 
