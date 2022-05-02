@@ -584,9 +584,9 @@ References:
 
 ##### Orchestration
 
-Orchestration is a centralized approach. Parts of the systems that are participating in a workflow are controlled by a single entity called Orchestrator.
+Orchestration is a centralized approach. Parts of the system that are participating in a workflow are controlled by a single entity called Orchestrator, which is responsible for executing each step in a flow and ensuring consistency of the entire operation.
 
-Orchestrator is responsible for executing each step in a flow and ensuring consistency.
+Orchestration works nicely for complex workflows with a lot of steps since it is easy to keep track of an entire flow in one place.
 
 ##### Choreography
 
@@ -594,7 +594,7 @@ Choreography is a decentralized peer-to-peer approach. Unlike orchestration, whe
 
 Choreography is flexible, but it can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using an orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place.
 
-Choreography in some cases may be harder to scale with growing business needs and complexities. Pub/sub model works for simplest of the flows, but has some issues when the complexity grows:
+Choreography in some cases may be harder to scale with growing business needs and complexities. Pub/sub model works for simple flows, but has some issues when the complexity grows:
 
 - Process flows are “embedded” within the code of multiple applications
 - Often there is tight coupling and assumptions around input/output, [Service Level Agreements (SLA)](https://en.wikipedia.org/wiki/Service-level_agreement), event schemas, etc., making it harder to adapt to changing needs.
@@ -626,7 +626,7 @@ Workflow engines:
 - [Google cloud workflows](https://cloud.google.com/workflows) - easily build reliable applications, process automation, data and machine learning pipelines.
 - [Camuda](https://camunda.com) - The Universal Process Orchestrator
 - [Prefect](https://www.prefect.io/) - Python based. Build, run, and monitor data pipelines at scale
-- [Conductor](https://en.wikipedia.org/wiki/Extract,_transform,_load) - Workflow Orchestration engine that runs in the cloud.
+- [Conductor](https://netflix.github.io/conductor/) - Workflow Orchestration engine that runs in the cloud.
 
 References:
 
