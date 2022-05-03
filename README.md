@@ -25,13 +25,13 @@ Topics and resources related to distributed systems, system design, microservice
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
     - [Databases](#databases)
-      - [SQL vs NoSQL](#sql-vs-nosql)
       - [Replication](#replication)
       - [Partitioning](#partitioning)
       - [Federation](#federation)
-      - [Multitenancy](#multitenancy)
       - [Denormalization](#denormalization)
       - [Materialized views](#materialized-views)
+      - [Multitenancy](#multitenancy)
+      - [SQL vs NoSQL](#sql-vs-nosql)
     - [Caching](#caching)
       - [Caching strategies](#caching-strategies)
       - [Distributed caches](#distributed-caches)
@@ -181,11 +181,11 @@ Scalability is the capability to handle the increased workload by repeatedly app
 
 **Horizontal scaling** means adding more servers into your pool of resources.
 
-Below are discussed some of the problems with scalability and patterns to solve those problems.
+Below are discussed some problems with scalability and patterns to solve those problems.
 
 ### Performance and availability
 
-Components of distributed systems communicate through a network. Networks are unreliable and slow compared to communication in a single process node. Ensuring good performance and availability in this conditions is an important aspect of a distributed system.
+Components of distributed systems communicate through a network. Networks are unreliable and slow compared to communication in a single process node. Ensuring good performance and availability in these conditions is an important aspect of a distributed system.
 
 **[Performance](https://en.wikipedia.org/wiki/Computer_performance)** is the amount of useful work accomplished by a computer system at reasonable time.
 
@@ -218,11 +218,11 @@ Layer 4 load balancers operate at the transport level and make their routing dec
 
 ##### Layer 7 load balancing
 
-Level 7 load balancing deals with the actual content of each message enabling the load balancer to make smarter load‑balancing decisions, can apply optimizations and changes to the content (such as compression and encryption) and make decisions based on the message content. Layer 7 gives a lot of interesting benefits, but is less performant.
+Level 7 load balancing deals with the actual content of each message enabling the load balancer to make smarter load balancing decisions, can apply optimizations and changes to the content (such as compression and encryption) and make decisions based on the message content. Layer 7 gives a lot of interesting benefits, but is less performant.
 
 **Note**: Layers 4 and 7 are a part of [OSI Model](#osi-model).
 
-Load balancing can be done by an [api gateway](#api-gateway) / [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
+Load balancing can be done by an [API gateway](#api-gateway) / [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
 
 References:
 
@@ -233,36 +233,13 @@ References:
 
 ### Databases
 
-#### SQL vs NoSQL
-
-**SQL**, or relational, databases are good for structured data.
-
-SQL databases are great for transaction-oriented systems that need strong [consistency](#consistency) because SQL Databases are [ACID](https://en.wikipedia.org/wiki/ACID) compliant.
-
-Relational databases can be very efficient at accessing well structured data, as it is placed in predictable memory locations.
-
-Relational databases are usually scaled vertically. Because in relational databases data is structured and can have connections between tables it is harder to partition / scale horizontally.
-
-Relational databases are a better choice as a main database for most projects, especially new ones, and can be good enough up to a few millions of active users, depending on a use case.
-
-SQL databases include: MySQL, PostgreSQL, Microsoft SQL server, Oracle, MariaDB and many more. Cloud providers like AWS, GCP and Azure include their own relational database solutions.
-
-**NoSQL** is a good choice for unstructured/non-relational data. Because unstructured data is usually self-contained and consists of independent objects with no relations, it is easier to partition, thus it is easier to scale horizontally.
-
-NoSQL / Non-Relational databases can be a good choice for large scale projects with more than few millions of active users, but since NoSQL databases lack ACID properties (NoSQL are usually eventually consistent) and relational structures, they are not the best choice as a main database for most projects on a low scale. Consider all pros and cons and choose wisely when picking a database.
-
-NoSQL databases include: MongoDB, Cassandra, Redis and many more. Cloud providers like AWS, GCP and Azure include their own non-relational database solutions.
-
-References:
-
-- [SQL vs. NoSQL – what’s the best option for your database needs?](https://www.thorntech.com/sql-vs-nosql/)
-- [[YouTube] How do NoSQL databases work? Simply Explained!](https://www.youtube.com/watch?v=0buKQHokLK8)
+Database can be a bottleneck of the entire application. Below are some patterns that can help scale databases.
 
 #### Replication
 
 [Data replication](<https://en.wikipedia.org/wiki/Replication_(computing)>) is when the same data is intentionally stored in more than one node.
 
-Having multiple copies of data can improve read performance, availability, prevent disasters in cases when one of the databases loses it's data.
+Having multiple copies of data can improve read performance, availability, prevent disasters in cases when one of the databases loses its data.
 
 References:
 
@@ -291,23 +268,6 @@ References:
 
 - [What is a Data Federation?](https://www.tibco.com/reference-center/what-is-a-data-federation)
 
-#### Multitenancy
-
-[Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) is a software architecture in which a single instance of software runs on a server and serves multiple tenants.
-
-There are multiple tenancy models for databases:
-
-- Single federated database for all tenants
-- One database per tenant
-- Sharded multi-tenant database
-- And others
-
-Which model to choose depends on a scale of your application.
-
-References:
-
-- [Multi-tenant SaaS database tenancy patterns](https://docs.microsoft.com/en-us/azure/azure-sql/database/saas-tenancy-app-design-patterns?view=azuresql)
-
 #### Denormalization
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance by adding redundant copies of data.
@@ -335,6 +295,48 @@ References:
 
 - [Working with Materialized Views](https://docs.snowflake.com/en/user-guide/views-materialized.html#:~:text=A%20materialized%20view%20is%20a,base%20table%20of%20the%20view.)
 - [Materialized View pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view)
+
+#### Multitenancy
+
+[Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) is a software architecture in which a single instance of software runs on a server and serves multiple tenants.
+
+There are multiple tenancy models for databases:
+
+- Single federated database for all tenants
+- One database per tenant
+- Sharded multi-tenant database
+- And others
+
+Which model to choose depends on a scale of your application.
+
+References:
+
+- [Multi-tenant SaaS database tenancy patterns](https://docs.microsoft.com/en-us/azure/azure-sql/database/saas-tenancy-app-design-patterns?view=azuresql)
+
+#### SQL vs NoSQL
+
+**SQL**, or relational, databases are good for structured data.
+
+SQL databases are great for transaction-oriented systems that need strong [consistency](#consistency) because SQL Databases are [ACID](https://en.wikipedia.org/wiki/ACID) compliant.
+
+Relational databases can be very efficient at accessing well structured data, as it is placed in predictable memory locations.
+
+Relational databases are usually scaled vertically. Because in relational databases data is structured and can have connections between tables it is harder to partition / scale horizontally.
+
+Relational databases are a better choice as a main database for most projects, especially new ones, and can be good enough up to a few millions of active users, depending on a use case.
+
+SQL databases include: MySQL, PostgreSQL, Microsoft SQL server, Oracle, MariaDB and many more. Cloud providers like AWS, GCP and Azure include their own relational database solutions.
+
+**NoSQL** is a good choice for unstructured/non-relational data. Because unstructured data is usually self-contained and consists of independent objects with no relations, it is easier to partition, thus it is easier to scale horizontally.
+
+NoSQL / Non-Relational databases can be a good choice for large scale projects with more than few millions of active users, but since NoSQL databases lack ACID properties (NoSQL are usually eventually consistent) and relational structures, they are not the best choice as a main database for most projects on a low scale. Consider all pros and cons and choose wisely when picking a database.
+
+NoSQL databases include: MongoDB, Cassandra, Redis and many more. Cloud providers like AWS, GCP and Azure include their own non-relational database solutions.
+
+References:
+
+- [SQL vs. NoSQL – what’s the best option for your database needs?](https://www.thorntech.com/sql-vs-nosql/)
+- [[YouTube] How do NoSQL databases work? Simply Explained!](https://www.youtube.com/watch?v=0buKQHokLK8)
 
 ### Caching
 
@@ -620,15 +622,15 @@ Process managers are state machines that store some state, while sagas usually d
 
 ### Workflow Engines
 
-Workflow engines are [workflow management systems](https://en.wikipedia.org/wiki/Workflow_management_system) that provide us a way to orchestrate microservices or data flows (like [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load)). They allow us to define a set of tasks that need to be executed and gives tooling that can help visualize flows (as diagrams and/or [Directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph)) and handle workflow monitoring, logging, retries, handling failures, scheduling, etc.
+Workflow engines are [workflow management systems](https://en.wikipedia.org/wiki/Workflow_management_system) that facilitate orchestration of microservices or data flows (like [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load)). They provide APIs to define a set of tasks that need to be executed and gives tooling that can help visualize flows (as diagrams and/or [Directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph)) and handle workflow monitoring, logging, retries, handling failures, scheduling, etc.
 
 Workflow engines:
 
-- [Apache Airflow](https://github.com/apache/airflow) - is a platform to programmatically author, schedule, and monitor workflows.
-- [Google cloud workflows](https://cloud.google.com/workflows) - easily build reliable applications, process automation, data and machine learning pipelines.
+- [Apache Airflow](https://github.com/apache/airflow) - is a platform created by AirBnb to programmatically author, schedule, and monitor workflows.
+- [Google cloud workflows](https://cloud.google.com/workflows) - easily build reliable applications, process automation, data and machine learning pipelines on Google Cloud.
 - [Camunda](https://camunda.com) - The Universal Process Orchestrator
 - [Prefect](https://www.prefect.io/) - Python based. Build, run, and monitor data pipelines at scale
-- [Conductor](https://netflix.github.io/conductor/) - Workflow Orchestration engine that runs in the cloud.
+- [Conductor](https://netflix.github.io/conductor/) - Workflow Orchestration engine created by Netflix that runs in the cloud.
 
 You can build [Business Process Model and Notation (BPMN)](https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation) diagrams for your workflows using tooling provided by <https://bpmn.io/>
 
