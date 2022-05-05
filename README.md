@@ -69,6 +69,8 @@ Topics and resources related to distributed systems, system design, microservice
       - [Byzantine generals problem](#byzantine-generals-problem)
       - [Raft](#raft)
       - [Paxos](#paxos)
+  - [Monitoring and Observability](#monitoring-and-observability)
+    - [Distributed tracing](#distributed-tracing)
   - [Other topics/patterns](#other-topicspatterns)
     - [Event Sourcing](#event-sourcing)
       - [CQRS](#cqrs)
@@ -785,6 +787,26 @@ References:
 [Paxos](<https://en.wikipedia.org/wiki/Paxos_(computer_science)>)
 
 TODO
+
+## Monitoring and Observability
+
+Observability, [monitoring](https://github.com/Sairyss/backend-best-practices#monitoring), [logging](https://github.com/Sairyss/backend-best-practices#logging), tracing are important aspects of distributed systems.
+
+### Distributed tracing
+
+Distributed tracing is a method of observing requests and transactions as they propagate through distributed systems (like microservices). Tracing Tools help pinpoint where failures occur, what causes poor performance, and lets you trace cross-process transactions.
+
+Distributed tracing is a must-have component for organizations that have complex distributed systems and workflows.
+
+- [OpenTelemetry](https://opentelemetry.io/) - a collection of tools, APIs, and SDKs to instrument, generate, collect, and export telemetry data (metrics, logs, and traces).
+
+---
+
+References
+
+- [Learning Distributed Tracing 101](https://tracing.cloudnative101.dev/docs/index.html)
+- [Evolving Distributed Tracing at Uber Engineering](https://eng.uber.com/distributed-tracing/)
+- [[Book] Mastering Distributed Tracing](https://www.shkuro.com/books/2019-mastering-distributed-tracing/)
 
 ## Other topics/patterns
 
