@@ -838,9 +838,9 @@ References:
 
 ### Chaos Engineering
 
-[Chaos Engineering](https://en.wikipedia.org/wiki/Chaos_engineering) is a practice of experimenting on distributed system to test its resilience by introducing some chaos: disabling parts of the systems, like services and servers, simulating hard drive failures, adding artificial latency, simulating high traffic, etc. to test how the system will behave in these conditions.
+[Chaos Engineering](https://en.wikipedia.org/wiki/Chaos_engineering) is a practice of experimenting on distributed system (usually in production environment) to test its resilience by introducing some chaos: disabling parts of the systems like services and servers, simulating hard drive failures, adding artificial latency, simulating high traffic, etc. to test how the system will behave in these conditions.
 
-Distributed systems are inherently chaotic. Parts of such systems communicate through unreliable networks, which means those interactions can cause unpredictable outcomes. Chaos Engineering helps uncover system's weak spots to make them more resilient. The harder it is to disrupt the steady state, the more confidence we have in the behavior of the system.
+Distributed systems are inherently chaotic. Parts of such systems communicate through unreliable networks, which means those interactions can cause unpredictable outcomes. Chaos Engineering helps uncover system's weak spots and find unreliable parts to make them more resilient. The harder it is to disrupt the steady state, the more confidence we have in the behavior of the system.
 
 Here are some tools for Chaos Engineering:
 
@@ -852,6 +852,7 @@ When practicing Chaos Engineering it is important to use [monitoring](https://gi
 
 Read more:
 
+- [[YouTube] What Is Chaos Engineering?](https://www.youtube.com/watch?v=r4M0RM3QGxk)
 - [Chaos engineering](https://www.techtarget.com/searchitoperations/definition/chaos-engineering)
 - [5 Best Chaos Engineering Tools](https://harness.io/blog/devops/chaos-engineering-tools/)
 - [Chaos Engineering and Observability with Visual Metaphors](https://www.infoq.com/articles/chaos-engineering-observability-visual-metaphors/)
