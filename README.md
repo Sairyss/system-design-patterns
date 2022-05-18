@@ -69,12 +69,12 @@ Topics and resources related to distributed systems, system design, microservice
       - [Byzantine generals problem](#byzantine-generals-problem)
       - [Raft](#raft)
       - [Paxos](#paxos)
-  - [Monitoring and Observability](#monitoring-and-observability)
-    - [Distributed tracing](#distributed-tracing)
   - [Other topics/patterns](#other-topicspatterns)
     - [Event Sourcing](#event-sourcing)
       - [CQRS](#cqrs)
       - [Projections](#projections)
+    - [Chaos Engineering](#chaos-engineering)
+    - [Distributed tracing](#distributed-tracing)
     - [Bulkhead pattern](#bulkhead-pattern)
     - [Local-first software](#local-first-software)
     - [Consistent Hashing](#consistent-hashing)
@@ -788,18 +788,6 @@ References:
 
 TODO
 
-## Monitoring and Observability
-
-Observability, [monitoring](https://github.com/Sairyss/backend-best-practices#monitoring), [logging](https://github.com/Sairyss/backend-best-practices#logging), tracing are important aspects of distributed systems.
-
-### Distributed tracing
-
-Distributed tracing is a method of observing requests and transactions as they propagate through distributed systems (like microservices). Tracing Tools help pinpoint where failures occur, what causes poor performance, and lets you trace cross-process transactions.
-
-Distributed tracing is a must-have component for organizations that have complex distributed systems and workflows.
-
-- [OpenTelemetry](https://opentelemetry.io/) - a collection of tools, APIs, and SDKs to instrument, generate, collect, and export telemetry data (metrics, logs, and traces).
-
 ---
 
 References
@@ -847,6 +835,34 @@ Usually you would subscribe to a stream of events and change projection state wh
 References:
 
 - [Projections 1: Theory](https://www.eventstore.com/blog/projections-1-theory)
+
+### Chaos Engineering
+
+[Chaos Engineering](https://en.wikipedia.org/wiki/Chaos_engineering) is a practice of experimenting on distributed system to test its resilience by introducing some chaos: disabling parts of the systems, like services and servers, simulating hard drive failures, adding artificial latency, simulating high traffic, etc. to test how the system will behave in these conditions.
+
+Distributed systems are inherently chaotic. Parts of such systems communicate through unreliable networks, which means those interactions can cause unpredictable outcomes. Chaos Engineering helps uncover system's weak spots to make them more resilient. The harder it is to disrupt the steady state, the more confidence we have in the behavior of the system.
+
+Here are some tools for Chaos Engineering:
+
+- [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
+- [Gremlin](https://www.gremlin.com/)
+- [Chaos Mesh](https://chaos-mesh.org/)
+
+When practicing Chaos Engineering it is important to use [monitoring](https://github.com/Sairyss/backend-best-practices#monitoring), [logging](https://github.com/Sairyss/backend-best-practices#logging) and tracing tools to have proper observability of the system.
+
+Read more:
+
+- [Chaos engineering](https://www.techtarget.com/searchitoperations/definition/chaos-engineering)
+- [5 Best Chaos Engineering Tools](https://harness.io/blog/devops/chaos-engineering-tools/)
+- [Chaos Engineering and Observability with Visual Metaphors](https://www.infoq.com/articles/chaos-engineering-observability-visual-metaphors/)
+
+### Distributed tracing
+
+Distributed tracing is a method of observing requests and transactions as they propagate through distributed systems (like microservices). Tracing Tools help pinpoint where failures occur, what causes poor performance, and lets you trace cross-process transactions.
+
+Distributed tracing is a must-have component for organizations that have complex distributed systems and workflows.
+
+- [OpenTelemetry](https://opentelemetry.io/) - a collection of tools, APIs, and SDKs to instrument, generate, collect, and export telemetry data (metrics, logs, and traces).
 
 ### Bulkhead pattern
 
