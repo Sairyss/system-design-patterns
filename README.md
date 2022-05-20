@@ -118,7 +118,7 @@ Examples: message brokers developed on top of [AMQP protocol](https://en.wikiped
 When changes occur, you need some way to reconcile changes across the different systems. One solution is eventual consistency and event-driven communication based on asynchronous messaging.
 
 Ideally, you should try to minimize the communication between the distributed systems. But it is not always possible.
-In microservices world, prefer asynchronous communication since it is better suited for communication between microservices than synchronous. The goal of each microservice is to be autonomous. If one of the microservices is down that shouldn't affect other microservices. Asynchronous protocols help with that. This topic is discussed more in details below in [coupling](#coupling) section.
+In microservices world, prefer asynchronous communication since it is better suited for communication between microservices than synchronous. The goal of each microservice is to be autonomous. If one of the microservices is down that shouldn't affect other microservices. Asynchronous communication via messaging can remove dependencies on the availability of other services. This topic is discussed more in details below in [coupling](#coupling) section.
 
 References:
 
@@ -421,13 +421,15 @@ References:
 
 Temporal coupling usually happens in synchronously communicated systems (a part of a system expects all other parts on which it depends to serve its needs instantaneously). If one part fails, all its dependent systems will also fail, creating a chain of failures.
 
+The most common approach to breaking temporal coupling is the use of message queues. Instead of invoking other parts of a system synchronously (calling and waiting for the response), the caller instead puts a request on a queue and the other system consumes this request when it is available.
+
 ##### Message queues
 
-The most common approach to breaking temporal coupling is the use of [message queues](https://en.wikipedia.org/wiki/Message_queue). Instead of invoking other parts of a system synchronously (calling and waiting for the response), the caller instead puts a request on a queue and the other system consumes this request when it is available.
+A [message queue](https://en.wikipedia.org/wiki/Message_queue) is a component used for [Inter-process communication](https://en.wikipedia.org/wiki/Inter-process_communication). In distributed systems typically used for [asynchronous service-to-service communication](#asynchronous-communication). Messages are stored on the queue until they are processed by a consumer.
 
-A message queue is a form of [asynchronous communication](#asynchronous-communication) used in some distributed systems (like microservices). Messages are stored on the queue until they are processed. Each message should be processed only once by a single consumer ([idempotent consumer](#idempotent-consumer)).
+Each message should be processed only once by a single consumer ([idempotent consumer](#idempotent-consumer)).
 
-Examples of software that includes queue possibilities: [RabbitMQ](https://www.rabbitmq.com/) and [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
+Software examples: [RabbitMQ](https://www.rabbitmq.com/) and [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
 
 References:
 
@@ -596,7 +598,7 @@ Orchestrated flows are explicit. It works nicely for complex workflows with a lo
 
 Choreography is a decentralized peer-to-peer approach. Unlike orchestration, when using choreography there is no central place that coordinates workflows. Each part of the system is responsible for subscribing to events it needs. This way data just flows through the system from one part of the system to another.
 
-Choreography is flexible, but the flow is implicit chain of events that can be hard to follow. When you have complex workflows with a lot of steps, it will be hard to track everything that is happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step, which is hard to maintain. In this case, using an orchestration might be a preferred approach compared to choreography since you will have an entire workflow in one place.
+Choreography is flexible, allows a high degree of independence and autonomy. However, it poses a challenge because many business activities require a logical explicit chain of events. In choreography, flow of events is implicit. When you have complex workflows with a lot of steps, it will be hard to track, understand, maintain, monitor and troubleshoot large-scale flow of activities that are happening across the system. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step. In this case, using an orchestration might be a preferred approach compared to choreography since you will have explicit workflows gathered in one place.
 
 Choreography in some cases may be harder to scale with growing business needs and complexities. Pub/sub model works for simple flows, but has some issues when the complexity grows:
 
@@ -640,6 +642,7 @@ References:
 
 - [The Microservices Workflow Automation Cheat Sheet](https://blog.bernd-ruecker.com/the-microservice-workflow-automation-cheat-sheet-fc0a80dc25aa?gi=b977a74ee087)
 - [Architecture options to run a workflow engine](https://blog.bernd-ruecker.com/architecture-options-to-run-a-workflow-engine-6c2419902d91)
+- [Microservices and Workflow Engines](https://dzone.com/refcardz/microservices-and-workflow-engines)
 - [[YouTube] Prefect Tutorial | Indestructible Python Code](https://youtu.be/0IcN117E4Xo)
 - [Awesome workflow engines](https://github.com/meirwah/awesome-workflow-engines)
 
