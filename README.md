@@ -27,7 +27,7 @@ Topics and resources related to distributed systems, system design, microservice
     - [Databases](#databases)
       - [Replication](#replication)
       - [Partitioning](#partitioning)
-      - [Federation](#federation)
+      - [Database Federation](#database-federation)
       - [Denormalization](#denormalization)
       - [Materialized views](#materialized-views)
       - [Multitenancy](#multitenancy)
@@ -256,28 +256,54 @@ References:
 - [Data partitioning guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning)
 - [Sharding pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/sharding)
 
-#### Federation
+#### Database Federation
 
-[Federation](https://en.wikipedia.org/wiki/Federated_database_system) splits databases by some particular function or domain. Instead of having multiple tables in one database, for example "users", "wallets", "transactions", in federated approach this could be 3 different databases. This can increase performance since load will be split across 3 databases instead of 1.
+[Database Federation](https://en.wikipedia.org/wiki/Federated_database_system) allows multiple databases to function as one, abstracting underlying complexity by providing a uniform API that can store or retrieve data from multiple databases using a single query.
 
-Downsides of this approach:
+For instance, using federated approach you can take data from multiple sources and combine it into a single piece, without your clients even knowing that this data comes from multiple sources.
+
+A simple example can be a functional partitioning, when we split databases by some particular function or domain. For example, imagine we have "users", "wallets" and "transactions" tables. In a federated approach this could be 3 different databases. This can increase performance since load will be split across 3 databases instead of 1.
+
+Pros:
+
+- Federated databases can be more performant and scalable
+- Easier to store massive volumes of data
+- Single source of truth for your data, meaning there is one place where it is stored using a single schema/format (unlike in [denormalized](#denormalization) databases)
+
+But it also has its downsides:
 
 - You'll need to decide manually which database to connect to.
 - Joining data from multiple databases will be much harder.
 - More complexity in code and infrastructure.
+- Consistency is harder to achieve since you lose [ACID](https://en.wikipedia.org/wiki/ACID) transactions
 
 References:
 
 - [What is a Data Federation?](https://www.tibco.com/reference-center/what-is-a-data-federation)
+- [Scaling up to your first 10 million users](https://youtu.be/kKjm4ehYiMs?t=2928) - federation discussed briefly starting at 48:48
 
 #### Denormalization
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance by adding redundant copies of data.
 
+For example, instead of having separate "users" and "wallets" tables that must be joined, you put them in a single document that doesn't need any joins. This way querying database will be faster, and scaling this database into multiple partitions will be easier since there is no need to join anymore.
+
+Pros:
+
+- Reads are faster since there are fewer joins (or none at all)
+- Since there is no joins it is easier to partition and scale
+- Queries can be simpler to write
+
+Cons:
+
+- Writes (inserts and updates) are more expensive
+- More redundancy requires more storage
+- Data can be inconsistent. Since we have multiple copies of the same data, some of those copies may be outdated (or in some cases never updated at all, which is dangerous and must be handled by ensuring eventual [consistency](#consistency))
+
 References:
 
 - [Denormalization in Databases](https://www.geeksforgeeks.org/denormalization-in-databases/)
-- [Building robust distributed systems](https://kislayverma.com/software-architecture/building-robust-distributed-systems/)
+- [Building robust distributed systems](https://kislayverma.com/software-architecture/building-robust-distributed-systems/) - denormalization discussed briefly
 
 #### Materialized views
 
