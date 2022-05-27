@@ -73,6 +73,7 @@ Topics and resources related to distributed systems, system design, microservice
     - [Event Sourcing](#event-sourcing)
       - [CQRS](#cqrs)
       - [Projections](#projections)
+    - [API Federation](#api-federation)
     - [Chaos Engineering](#chaos-engineering)
     - [Distributed tracing](#distributed-tracing)
     - [Bulkhead pattern](#bulkhead-pattern)
@@ -868,6 +869,28 @@ Usually you would subscribe to a stream of events and change projection state wh
 References:
 
 - [Projections 1: Theory](https://www.eventstore.com/blog/projections-1-theory)
+
+### API Federation
+
+The goal of API federation is to expose resources from multiple parts of the system by providing a unified API with common and consistent schema, abstracting and hiding complexities of an underlying system that consist of many parts, services, databases, etc. (similarly to [database federation](#database-federation)).
+
+API Federation describes set of practices and tools to strategically think about how to deal with complex APIs in organizations that are creating distributed systems (usually microservices).
+
+For example, when we have multiple services that expose some related data:
+
+- "Customer" service exposes data related to your customer
+- "Orders" service exposes customers orders
+- "Shipping" service exposes shipping status of an order
+
+Customer may want to query his orders together with a shipping status and some other details. Instead of querying all three of those services separately, in federated approach this could be only one request that gets unified internally into one response, making it easier for clients to use your APIs.
+
+Federated APIs can be built using unified HTTP [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete#:~:text=In%20computer%20programming%2C%20create%2C%20read,computer%2Dbased%20forms%20and%20reports.) interfaces, or using [GraphQL](https://graphql.org/) graphs.
+
+References:
+
+- [API Federation: growing scalable API landscapes](https://engineering.salesforce.com/api-federation-growing-scalable-api-landscapes-a0f1f0dad506?gi=c5efe3b03777)
+- [How Netflix Scales its API with GraphQL Federation](https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-1-ae3557c187e2)
+- [Introduction to Apollo Federation](https://www.apollographql.com/docs/federation/)
 
 ### Chaos Engineering
 
