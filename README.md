@@ -73,6 +73,7 @@ Topics and resources related to distributed systems, system design, microservice
     - [Event Sourcing](#event-sourcing)
       - [CQRS](#cqrs)
       - [Projections](#projections)
+    - [Actor Model](#actor-model)
     - [API Federation](#api-federation)
     - [Chaos Engineering](#chaos-engineering)
     - [Distributed tracing](#distributed-tracing)
@@ -869,6 +870,19 @@ Usually you would subscribe to a stream of events and change projection state wh
 References:
 
 - [Projections 1: Theory](https://www.eventstore.com/blog/projections-1-theory)
+
+### Actor Model
+
+[The actor model](https://en.wikipedia.org/wiki/Actor_model) is a computer science concept of concurrent computation that uses "actors" as the fundamental agents of computing (similarly to objects in [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) world). Unlike typical OOP objects, Actors only communicate by messages, so sending input and output is done only through message passing, not method calling. Actors can also create other actors, thus making an actor tree.
+
+Actor model can be a great addition for distributed, concurrent and/or real time systems (like chats).
+
+The most popular implementations of actor model include [Erlang](https://www.erlang.org/) programming language and [Akka](https://akka.io/) toolkit for [Java](https://www.java.com/en/) and [Scala](https://www.scala-lang.org/)
+
+References:
+
+- [How the Actor Model Meets the Needs of Modern, Distributed Systems](https://doc.akka.io/docs/akka/current/typed/guide/actors-intro.html)
+- [The actor model in 10 minutes](https://www.brianstorti.com/the-actor-model/)
 
 ### API Federation
 
