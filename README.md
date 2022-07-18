@@ -825,12 +825,6 @@ TODO
 
 ---
 
-References
-
-- [Learning Distributed Tracing 101](https://tracing.cloudnative101.dev/docs/index.html)
-- [Evolving Distributed Tracing at Uber Engineering](https://eng.uber.com/distributed-tracing/)
-- [[Book] Mastering Distributed Tracing](https://www.shkuro.com/books/2019-mastering-distributed-tracing/)
-
 ## Other topics/patterns
 
 ### Event Sourcing
@@ -934,6 +928,12 @@ Distributed tracing is a method of observing requests and transactions as they p
 Distributed tracing is a must-have component for organizations that have complex distributed systems and workflows.
 
 - [OpenTelemetry](https://opentelemetry.io/) - a collection of tools, APIs, and SDKs to instrument, generate, collect, and export telemetry data (metrics, logs, and traces).
+
+References
+
+- [Learning Distributed Tracing 101](https://tracing.cloudnative101.dev/docs/index.html)
+- [Evolving Distributed Tracing at Uber Engineering](https://eng.uber.com/distributed-tracing/)
+- [[Book] Mastering Distributed Tracing](https://www.shkuro.com/books/2019-mastering-distributed-tracing/)
 
 ### Bulkhead pattern
 
