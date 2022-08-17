@@ -809,13 +809,13 @@ TODO
 
 #### Raft
 
-[Raft](<https://en.wikipedia.org/wiki/Raft_(algorithm)>)
-
-TODO
+[Raft](<https://en.wikipedia.org/wiki/Raft_(algorithm)>) is a consensus algorithm used in distributed computing (for example, in distributed databases).
+Raft servers are either _leaders_ or _followers_. If a _leader_ becomes unavailable, consensus is achieved via _leader_ election by the _followers_.
 
 References:
 
 - [The Raft Consensus Algorithm](https://raft.github.io/)
+- [Raft - Understandable Distributed Consensus](https://thesecretlivesofdata.com/raft/) - visualization of a Raft algorithm
 
 #### Paxos
 
