@@ -237,7 +237,7 @@ References:
 
 ### Databases
 
-Database can be a bottleneck of the entire application. Below are some patterns that can help scale databases.
+[Database](https://www.scaler.com/topics/dbms/distributed-database-in-dbms/) can be a bottleneck of the entire application. Below are some patterns that can help scale databases.
 
 #### Replication
 
