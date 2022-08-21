@@ -25,6 +25,7 @@ Topics and resources related to distributed systems, system design, microservice
         - [Layer 4 load balancing](#layer-4-load-balancing)
         - [Layer 7 load balancing](#layer-7-load-balancing)
     - [Databases](#databases)
+      - [Indexing](#indexing)
       - [Replication](#replication)
       - [Partitioning](#partitioning)
       - [Database Federation](#database-federation)
@@ -238,6 +239,25 @@ References:
 ### Databases
 
 Database can be a bottleneck of the entire application. Below are some patterns that can help scale databases.
+
+#### Indexing
+
+[Database index](https://en.wikipedia.org/wiki/Database_index) is a data structure that is used for improving db querying speed.
+
+Creating indexes is one of the first things you should consider when you need to improve database read performance. To be able to create effective indexes, here are a few important things to consider:
+
+- You need to know what index data structure works best for your particular use case. Most common index data structure is a [B-Tree](https://en.wikipedia.org/wiki/B-tree), it works well for most cases. But in some cases (like full text search) you may need something else, like [GIN (Generalized Inverted Index)](https://pgpedia.info/g/gin.html).
+- Your query may need a full index, but in some cases a [partial index](https://www.postgresql.org/docs/current/indexes-partial.html) can be a better choice
+- When creating an index, an order of columns in an index may play a big role on how this index is going to perform. It is even possible to make query slower by creating a suboptimal index.
+- While indexes can improve read performance, they slow down write performance since every time you insert something into a database each index has to be updated too. Create only minimum amount of indices that you will actually use, and remove all unused ones.
+
+Indexing is a complex topic. Creating effective indexes requires deep understanding of how they work internally. Check out the references below for more in-depth guides.
+
+References:
+
+- [[YouTube] Things every developer absolutely, positively needs to know about database indexing](https://youtu.be/HubezKbFL7E)
+- [Using Postgres CREATE INDEX](https://pganalyze.com/blog/postgres-create-index)
+- [Index Advisor for Postgres](https://pganalyze.com/index-advisor) - a tool for PostgreSQL that can suggest indexes to make querying more efficient
 
 #### Replication
 
