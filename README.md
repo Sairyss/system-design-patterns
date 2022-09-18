@@ -1,4 +1,4 @@
-# Distributed systems topics
+# Distributed systems patterns
 
 **This repo is work in progress**
 
@@ -11,7 +11,7 @@ Topics and resources related to distributed systems, system design, microservice
 
 ---
 
-- [Distributed systems topics](#distributed-systems-topics)
+- [Distributed systems patterns](#distributed-systems-patterns)
   - [Distributed systems integration](#distributed-systems-integration)
     - [Synchronous communication](#synchronous-communication)
     - [Asynchronous communication](#asynchronous-communication)
@@ -22,8 +22,8 @@ Topics and resources related to distributed systems, system design, microservice
       - [Creating redundancy](#creating-redundancy)
       - [Autoscaling](#autoscaling)
       - [Load balancing](#load-balancing)
-        - [Layer 4 load balancing](#layer-4-load-balancing)
-        - [Layer 7 load balancing](#layer-7-load-balancing)
+        - [Transport (Layer 4) load balancing](#transport-layer-4-load-balancing)
+        - [Application (Layer 7) load balancing](#application-layer-7-load-balancing)
     - [Databases](#databases)
       - [Indexing](#indexing)
       - [Replication](#replication)
@@ -214,20 +214,28 @@ References:
 
 #### Load balancing
 
-To distribute traffic between multiple instances/nodes, you will need load balancing tools.
+High-traffic websites must serve thousands or even millions of concurrent requests to their clients. To scale to these amounts of traffic usually requires adding more servers with multiple instances/nodes of a backend application running.
+
+To distribute traffic between multiple servers and instances/nodes, you will need load balancing tools sitting between the client and the backend server.
 [Load balancing](<https://en.wikipedia.org/wiki/Load_balancing_(computing)>) is a technique to distribute network or application traffic across a number of servers.
 
-##### Layer 4 load balancing
+Load balancers can operate at one of the two levels described below.
+
+##### Transport (Layer 4) load balancing
 
 Layer 4 load balancers operate at the transport level and make their routing decisions based on address information extracted from the first few packets in the TCP stream and do not inspect packet content.
 
-##### Layer 7 load balancing
+##### Application (Layer 7) load balancing
 
 Level 7 load balancing deals with the actual content of each message enabling the load balancer to make smarter load balancing decisions, can apply optimizations and changes to the content (such as compression and encryption) and make decisions based on the message content. Layer 7 gives a lot of interesting benefits, but is less performant.
 
 **Note**: Layers 4 and 7 are a part of [OSI Model](#osi-model).
 
-Load balancing can be done by an [API gateway](#api-gateway) / [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
+Load balancing can be software and hardware based.
+
+Software Load balancing can be done by an [API gateway](#api-gateway) or a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy).
+
+There are multiple algorithms for implementing load balancing: round-robin, least connection, hashing based, etc.
 
 References:
 
@@ -235,6 +243,7 @@ References:
 - [What Is Layer 4 Load Balancing?](https://www.nginx.com/resources/glossary/layer-4-load-balancing/)
 - [What Is Layer 7 Load Balancing?](https://www.nginx.com/resources/glossary/layer-7-load-balancing/)
 - [System Design — Proxies](https://medium.com/must-know-computer-science/system-design-proxies-ef5f2c2676f2)
+- [Round Robin Load Balancing Definition](https://avinetworks.com/glossary/round-robin-load-balancing/)
 
 ### Databases
 
@@ -1029,7 +1038,7 @@ References:
 
 ### OSI Model
 
-OSI stands for [Open Systems Interconnection](https://en.wikipedia.org/wiki/OSI_model).
+OSI stands for [Open Systems Interconnection](https://en.wikipedia.org/wiki/OSI_model). The OSI Model is a conceptual model that defines a common basis for network communication standards for the purpose of systems interconnection. OSI Model defines a logical network and describes computer packet transfer by using various layers of protocols.
 
 You need to know basics of OSI model in order to have a better understanding of some problems in distributed computing (for example Layer 4 and 7 load balancing).
 
