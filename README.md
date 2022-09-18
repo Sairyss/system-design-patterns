@@ -1,4 +1,4 @@
-# Distributed systems patterns
+# System Design Patterns
 
 **This repo is work in progress**
 
@@ -11,7 +11,7 @@ Topics and resources related to distributed systems, system design, microservice
 
 ---
 
-- [Distributed systems patterns](#distributed-systems-patterns)
+- [System Design Patterns](#system-design-patterns)
   - [Distributed systems integration](#distributed-systems-integration)
     - [Synchronous communication](#synchronous-communication)
     - [Asynchronous communication](#asynchronous-communication)
