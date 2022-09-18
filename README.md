@@ -28,6 +28,7 @@ Topics and resources related to distributed systems, system design, microservice
       - [Indexing](#indexing)
       - [Replication](#replication)
       - [Partitioning](#partitioning)
+      - [Hot, Warm and Cold data](#hot-warm-and-cold-data)
       - [Database Federation](#database-federation)
       - [Denormalization](#denormalization)
       - [Materialized views](#materialized-views)
@@ -287,6 +288,21 @@ References:
 - [Data partitioning guidance](https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning)
 - [Sharding pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/sharding)
 
+#### Hot, Warm and Cold data
+
+You can think about data as hot, cold or warm.
+
+- **Hot storage** is data that is accessed frequently. For example blog posts created in the last couple of days will probably have a lot more attention than old posts.
+- **Warm storage** is data that is accessed less frequently. For example blog posts that are created more than a week ago, but still get some attention from time to time.
+- **Cold storage** is data that is rarely accessed. For example blog posts created long time ago that are rarely accessed nowadays.
+
+When deciding what data to store where, it’s important to consider the access patterns. Hot data can be stored in a fast and expensive storage (SSDs), warm data can be stored in a cheaper storage (HDDs), and cold data can be stored on the cheapest storage.
+
+References:
+
+- [The Differences Between Cold, Warm, and Hot Storage](https://www.ctera.com/company/blog/differences-hot-warm-cold-file-storage/)
+- [[YouTube] Data Partitioning! Don't let growth SLOW you down!](https://youtu.be/_zRXJuW7W98)
+
 #### Database Federation
 
 [Database Federation](https://en.wikipedia.org/wiki/Federated_database_system) allows multiple databases to function as one, abstracting underlying complexity by providing a uniform API that can store or retrieve data from multiple databases using a single query.
@@ -401,7 +417,7 @@ References:
 
 A [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>) is a high-speed data storage layer which stores a subset of data, typically temporary, so that future requests for that data are served up faster than by accessing the data’s primary storage.
 
-For caching you can use tools like [Redis](https://redis.io/), [Memcached](https://memcached.org/), or other key-value stores.
+For caching, you can use tools like [Redis](https://redis.io/), [Memcached](https://memcached.org/), or other key-value stores.
 
 #### Caching strategies
 
