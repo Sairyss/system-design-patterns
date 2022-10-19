@@ -1101,4 +1101,5 @@ References:
 
 - [Scaling up to your first 10 million users (YouTube)](https://www.youtube.com/watch?v=kKjm4ehYiMs)
 - [Developing microservices with aggregates - Chris Richardson (YouTube)](https://youtu.be/7kX3fs0pWwc)
+- [Systems Engineering](https://youtube.com/playlist?list=PLn8PRpmsu08owzDpgnQr7vo2O-FUQm_fL)
 - [InfoQ Channel (YouTube)](https://www.youtube.com/nctv)
