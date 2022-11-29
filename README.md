@@ -1077,6 +1077,7 @@ References:
 ### Books
 
 - [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321) by Martin Kleppmann (must-read)
+- [System Design Interview](https://www.amazon.com/System-Design-Interview-Insiders-Guide-ebook/dp/B08B3FWYBX) by Alex Xu
 
 ### Articles
 
@@ -1096,10 +1097,12 @@ References:
 
 - [The System Design Primer](https://github.com/donnemartin/system-design-primer)
 - [awesome-distributed-systems](https://github.com/theanalyst/awesome-distributed-systems)
+- [An Introduction to Distributed Systems](https://github.com/aphyr/distsys-class)
 
 ### Videos
 
-- [Scaling up to your first 10 million users (YouTube)](https://www.youtube.com/watch?v=kKjm4ehYiMs)
-- [Developing microservices with aggregates - Chris Richardson (YouTube)](https://youtu.be/7kX3fs0pWwc)
+- [Scaling up to your first 10 million users](https://www.youtube.com/watch?v=kKjm4ehYiMs)
+- [Developing microservices with aggregates - Chris Richardson](https://youtu.be/7kX3fs0pWwc)
+- [Introduction to AWS Services](https://youtu.be/Z3SYDTMP3ME)
 - [Systems Engineering](https://youtube.com/playlist?list=PLn8PRpmsu08owzDpgnQr7vo2O-FUQm_fL)
-- [InfoQ Channel (YouTube)](https://www.youtube.com/nctv)
+- [InfoQ Channel](https://www.youtube.com/nctv)
