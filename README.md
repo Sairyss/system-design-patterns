@@ -798,13 +798,13 @@ References:
 
 CDC is one of the techniques that can help with data consistency when you deal with multiple storage systems.
 
-In a typical database, when you save something, data is first appended to a commit log (also called change log or [transaction log](https://docs.microsoft.com/en-us/sql/relational-databases/logs/the-transaction-log-sql-server?view=sql-server-ver15)) based on a [log data structure](https://scaling.dev/storage/log). This commit log is a source of truth, and tables are merely a views of the commit log.
+In a typical database, when you save something, data is first appended to a commit log (also called change log, [write ahead log](https://www.postgresql.org/docs/current/wal-intro.html) or [transaction log](https://docs.microsoft.com/en-us/sql/relational-databases/logs/the-transaction-log-sql-server?view=sql-server-ver15)) based on a [log data structure](https://scaling.dev/storage/log). This commit log is a source of truth, and tables are merely views of the commit log.
 
-We can utilize that log to duplicate changes from a main database to other databases consistently. Tools like [debezium](https://debezium.io/) allow publishing database changes to your streams ([Kafka](https://kafka.apache.org/)).
+We can utilize that log to duplicate changes from a main database to other databases consistently. Tools like [debezium](https://debezium.io/) allow publishing database changes to your event bus (like [Kafka](https://kafka.apache.org/)), and consumers of those events can insert changes to other databases asynchronously.
 
 Why don't we simply save data to multiple databases at once? Because this is not safe and leads to [dual-write problems](#dual-writes-problem).
 
-When data crosses the boundary between different technologies, asynchronous event log with [idempotent consumers](#idempotent-consumer) is reliable and robust solution.
+When data crosses the boundary between different technologies and processes, using things like CDC, commit log, events bus, and [idempotent consumers](#idempotent-consumer) is a reliable and robust solution to keep data consistent.
 
 References:
 
