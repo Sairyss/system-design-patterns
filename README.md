@@ -16,7 +16,7 @@ Topics and resources related to distributed systems, system design, microservice
     - [Synchronous communication](#synchronous-communication)
     - [Asynchronous communication](#asynchronous-communication)
     - [Data serialization](#data-serialization)
-    - [Api Gateway](#api-gateway)
+    - [API Gateway](#api-gateway)
   - [Scalability](#scalability)
     - [Performance and availability](#performance-and-availability)
       - [Creating redundancy](#creating-redundancy)
@@ -101,6 +101,12 @@ Topics and resources related to distributed systems, system design, microservice
 
 ### Synchronous communication
 
+Synchronous communication is a mode of communication in which the parties involved need to be in contact with each other at the same time in order to exchange messages or information. In synchronous communication, messages are typically transmitted between the parties, and are received and processed immediately, without any delay.
+
+Synchronous communication is often used in real-time applications, where the parties need to exchange messages or information in a timely manner in order to maintain the integrity or consistency of the system. By using synchronous communication, the parties can exchange messages and information in a coordinated and immediate manner, which can improve the performance and reliability of the system.
+
+There are several ways to implement synchronous communication, including using [remote procedure calls (RPCs)](https://en.wikipedia.org/wiki/Remote_procedure_call), [sockets](https://en.wikipedia.org/wiki/Network_socket), or other mechanisms. The choice of approach depends on the specific requirements and constraints of the system, and on the type and amount of data that needs to be exchanged.
+
 In synchronous communication a client depends on an answer. In this form of communication the client sends a request and waits for a response before continuing.
 
 Examples of a synchronous communication are [Remote Procedure Calls (RPC)](https://en.wikipedia.org/wiki/Remote_procedure_call) over [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), [gRPC](https://en.wikipedia.org/wiki/GRPC), [Apache Thrift](https://en.wikipedia.org/wiki/Apache_Thrift) etc. Also [RabbitMQ supports RPC pattern](https://www.rabbitmq.com/tutorials/tutorial-six-javascript.html).
@@ -115,7 +121,13 @@ Synchronous calls between distributed systems is not always a good idea. It crea
 
 ### Asynchronous communication
 
-In async communication, client or message sender doesn't wait for a response. It just sends a message which is stored until the receiver takes it (fire and forget).
+Asynchronous communication is a mode of communication in which the parties involved do not need to be in contact with each other at the same time in order to exchange messages or information. In asynchronous communication, messages are typically transmitted between the parties, and then are received and processed at a later time.
+
+Asynchronous communication is often used in distributed systems, where the parties involved are located in different places, or are operating at different times. By using asynchronous communication, the parties can exchange messages without needing to be in contact with each other at the same time, which can improve the flexibility and scalability of the system.
+
+In short, when using async communication, client or message sender doesn't wait for a response. It just sends a message which is stored until the receiver takes it (fire and forget).
+
+There are several ways to implement asynchronous communication, including using message queues, event streams, or other mechanisms. The choice of approach depends on the specific requirements and constraints of the system, and on the type and amount of data that needs to be exchanged.
 
 Examples: message brokers developed on top of [AMQP protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol) (like [RabbitMQ](https://www.rabbitmq.com/)) or event streams like [Kafka](https://en.wikipedia.org/wiki/Apache_Kafka).
 
@@ -132,9 +144,13 @@ References:
 
 ### Data serialization
 
-We need to address the issue of multi-language microservices communication. A possible solution is to describe our data models in some language-agnostic way so we can generate the same models for each language. This requires the use of an IDL, or [interface definition language](https://en.wikipedia.org/wiki/Interface_description_language).
+Data serialization is the process of converting structured data into a format that can be stored or transmitted, and reconstructed later. The process of serialization involves translating the data into a format that can be easily stored or transmitted, such as a string of characters or bytes, and then reconstructing the data from the serialized format when it is needed.
 
-One of the most common formats for that lately is [JSON](https://en.wikipedia.org/wiki/JSON). It is simple and human readable. For most systems out there this format is a great choice.
+Data serialization is often used in distributed systems, where data needs to be transferred between different nodes or components in the system. By serializing the data, it can be transmitted over a network or stored in a file, and then reconstructed at the other end of the transmission. This allows the data to be transferred efficiently and reliably, and makes it possible for different nodes or components in the system to share data.
+
+To address the issue of multi-language microservices communication, a possible solution is to describe our data models in some language-agnostic way, so we can generate the same models for each language. This requires the use of an IDL, or [interface definition language](https://en.wikipedia.org/wiki/Interface_description_language).
+
+One of the most common formats for that lately is [JSON](https://en.wikipedia.org/wiki/JSON). It is simple and human-readable. For most systems out there this format is a great choice.
 
 But when your system is growing, there are better choices.
 
@@ -151,12 +167,16 @@ References:
 - [Why Use gRPC and Thrift for Remote Procedure Calls](https://dzone.com/articles/why-use-grpc-and-thrift-for-remote-procedure-calls?fromrel=true)
 - [The best serialization strategy for Event Sourcing](https://blog.softwaremill.com/the-best-serialization-strategy-for-event-sourcing-9321c299632b)
 
-### Api Gateway
+### API Gateway
 
-Your clients need to communicate to your system somehow. Here is where Api Gateway comes in.
+Your clients need to communicate to your system somehow. Here is where API Gateway comes in.
+
+An API gateway is a software component that acts as a bridge between an application and the underlying services or resources that the application uses. The API gateway is responsible for routing requests from the application to the appropriate service or resource, and for translating the request and response data as needed to enable communication between the application and the service.
 
 > An API gateway is an API management tool that sits between a client and a collection of backend services. An API gateway acts as a reverse proxy to accept all application programming interface (API) calls, aggregate the various services required to fulfill them, and return the appropriate result.
 > <small>Quote from [What does an API gateway do?](https://www.redhat.com/en/topics/api/what-does-an-api-gateway-do#:~:text=An%20API%20gateway%20is%20an,and%20return%20the%20appropriate%20result.)</small>
+
+In many cases, the API gateway is implemented as a layer between the application and the underlying services, and is responsible for routing requests from the application to the appropriate service, and for translating the request and response data as needed. This allows the API gateway to abstract the underlying services from the application, and to provide a consistent and standardized interface for the application to access the services.
 
 You can implement your own API Gateway if needed, or you could use existing solutions like [Kong](https://konghq.com/kong/) or [nginx](https://www.nginx.com/).
 
@@ -206,7 +226,9 @@ Redundancy can improve flexibility, reliability, availability, scalability and p
 
 #### Autoscaling
 
-[Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used in cloud computing that dynamically adjusts the amount of computational resources in a server based on the load.
+[Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used in cloud computing that dynamically adjusts the amount of computational resources in a server based on the load. Autoscaling allows an application to scale up or down automatically, based on pre-defined policies and rules, in order to maintain optimal performance and cost efficiency.
+
+In cloud autoscaling, the application or service is monitored continuously, and the capacity of the underlying cloud infrastructure is automatically adjusted based on the workload and performance of the application. For example, if the workload increases, the autoscaling system can automatically add additional resources, such as servers or processors, in order to handle the increased demand. Conversely, if the workload decreases, the autoscaling system can automatically release or shut down unused resources in order to reduce costs.
 
 References:
 
@@ -217,8 +239,11 @@ References:
 
 High-traffic websites must serve thousands or even millions of concurrent requests to their clients. To scale to these amounts of traffic usually requires adding more servers with multiple instances/nodes of a backend application running.
 
-To distribute traffic between multiple servers and instances/nodes, you will need load balancing tools sitting between the client and the backend server.
-[Load balancing](<https://en.wikipedia.org/wiki/Load_balancing_(computing)>) is a technique to distribute network or application traffic across a number of servers.
+[Load balancing](<https://en.wikipedia.org/wiki/Load_balancing_(computing)>) is a technique for distributing workloads or requests across multiple computing resources, such as servers, processors, or network links, in order to improve the performance and availability of a system. In a load-balanced system, requests are distributed evenly across the available resources, in order to balance the load and prevent any individual resource from becoming overwhelmed.
+
+Load balancing can provide several benefits, such as improved performance and scalability, better utilization of resources, and increased availability and reliability. It is often used in distributed systems, such as web applications or networks, where it can help to distribute workloads and requests across multiple resources in order to improve the performance and availability of the system.
+
+There are several approaches to load balancing, including hardware-based load balancers, software-based load balancers, and cloud-based load balancers. The choice of approach depends on the specific requirements and constraints of the system, and on the type and amount of workload that needs to be distributed.
 
 Load balancers can operate at one of the two levels described below.
 
@@ -252,7 +277,11 @@ Database can be a bottleneck of the entire application. Below are some patterns 
 
 #### Indexing
 
-[Database index](https://en.wikipedia.org/wiki/Database_index) is a data structure that is used for improving db querying speed.
+Database indexing is a technique for organizing and storing data in a database in a way that allows it to be accessed and queried efficiently. A [Database index](https://en.wikipedia.org/wiki/Database_index) is a data structure that is used to store a subset of the data in a database, and to provide fast access to the data based on the values in one or more columns.
+
+When a query is executed, the database can use the index to quickly locate and retrieve the data that is needed to satisfy the query, without having to scan the entire database. This can improve the performance of the query and make it more efficient.
+
+There are several types of indexes that can be used in a database, including primary indexes, secondary indexes, clustered indexes, and non-clustered indexes. The choice of index type depends on the data in the database and the type of queries that are being executed.
 
 Creating indexes is one of the first things you should consider when you need to improve database read performance. To be able to create effective indexes, here are a few important things to consider:
 
@@ -267,13 +296,18 @@ References:
 
 - [[YouTube] Things every developer absolutely, positively needs to know about database indexing](https://youtu.be/HubezKbFL7E)
 - [Using Postgres CREATE INDEX](https://pganalyze.com/blog/postgres-create-index)
+- [Clustered and nonclustered indexes described](https://learn.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-ver16)
 - [Index Advisor for Postgres](https://pganalyze.com/index-advisor) - a tool for PostgreSQL that can suggest indexes to make querying more efficient
 
 #### Replication
 
 [Data replication](<https://en.wikipedia.org/wiki/Replication_(computing)>) is when the same data is intentionally stored in more than one node.
 
-Having multiple copies of data can improve read performance, availability, prevent disasters in cases when one of the databases loses its data.
+Database replication is a technique for copying data from one database to another, in order to provide multiple copies of the data for fault tolerance, scalability, or performance. Database replication can be used to create a redundant copy of a database, or to distribute a database across multiple nodes or locations.
+
+In database replication, data is copied from a source database to one or more target databases. The source and target databases can be located on the same server, or on different servers. The data is copied asynchronously, which means that the source and target databases can operate independently of each other, and the data is copied in the background without interrupting the operation of the databases.
+
+Database replication can provide several benefits, such as improved availability and fault tolerance, better performance and scalability, and easier data management and maintenance.
 
 References:
 
@@ -281,7 +315,17 @@ References:
 
 #### Partitioning
 
-[Partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a division of a database into distinct independent parts. When you have large amounts of data that don't fit into one database partitioning is a logical next step to improve scalability.
+[Database partitioning](<https://en.wikipedia.org/wiki/Partition_(database)>) is a technique for dividing a database into smaller, independent parts, called partitions. The goal of partitioning is to improve the performance and scalability of the database by allowing data to be distributed across multiple partitions, and by allowing each partition to be managed and accessed independently of the others.
+
+When you have large amounts of data that don't fit into one database partitioning is a logical next step to improve scalability.
+
+There are several types of database partitioning, including:
+
+- **Horizontal partitioning**: In this type of partitioning, rows of a database table are divided into multiple partitions based on the values in one or more columns. This allows different partitions to be managed and accessed independently of each other, and can improve the performance and scalability of the database.
+- **Vertical partitioning**: In this type of partitioning, columns of a database table are divided into multiple partitions. This can help to reduce the size of each partition, and can make it easier to manage and access the data in the database.
+- **Range partitioning**: In this type of partitioning, the rows of a database table are divided into multiple partitions based on the range of values in a specific column. This can be useful for managing data that has a natural range, such as dates or numbers.
+
+Database partitioning is a technique that can improve the performance and scalability of a database by allowing data to be distributed across multiple partitions and managed independently.
 
 References:
 
@@ -333,6 +377,12 @@ References:
 
 [Denormalization](https://en.wikipedia.org/wiki/Denormalization) is the process of trying to improve the read performance of a database by sacrificing some write performance by adding redundant copies of data.
 
+Database denormalization is a technique for optimizing the performance of a database by adding redundant data to it. In a [normalized database](https://en.wikipedia.org/wiki/Database_normalization), data is organized into multiple, interconnected tables, with each table containing a unique set of data. This can improve the integrity and flexibility of the database, but can also result in complex and costly queries.
+
+When denormalizing a database, data is copied or derived from one table and added to another, in order to reduce the number of table joins or other operations that are needed to retrieve the data. This can improve the performance of the database by reducing the amount of work that the database engine needs to do to satisfy a query, and can also reduce the amount of data that needs to be transmitted between the database engine and the application.
+
+Database denormalization is often used in data warehousing and business intelligence applications, where complex and costly queries are common. It can also be used in other types of databases, such as operational databases, where the performance of the database is critical.
+
 For example, instead of having separate "users" and "wallets" tables that must be joined, you put them in a single document that doesn't need any joins. This way querying database will be faster, and scaling this database into multiple partitions will be easier since there is no need to join anymore.
 
 Pros:
@@ -373,7 +423,9 @@ References:
 
 #### Multitenancy
 
-[Multitenancy](https://en.wikipedia.org/wiki/Multitenancy) is a software architecture in which a single instance of software runs on a server and serves multiple tenants.
+[Multitenant architecture](https://en.wikipedia.org/wiki/Multitenancy) is a design pattern for software applications that allows a single instance of the application to serve multiple tenants, or groups of users. In a multitenant architecture, the application is designed to isolate the data and resources of each tenant, so that each tenant can access and use the application independently of other tenants.
+
+Multitenant architecture is often used in software as a service (SaaS) applications, where the application is provided to multiple tenants on a subscription basis. In this type of architecture, the application is designed to support multiple tenants, each with their own data and resources, and to provide each tenant with access to a specific instance of the application. This allows the application to be used by multiple tenants concurrently, without requiring each tenant to have their own separate instance of the application.
 
 There are multiple tenancy models for databases:
 
@@ -415,7 +467,9 @@ References:
 
 ### Caching
 
-A [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>) is a high-speed data storage layer which stores a subset of data, typically temporary, so that future requests for that data are served up faster than by accessing the data’s primary storage.
+Caching is a technique for storing frequently accessed data in a temporary storage area, known as a [cache](<https://en.wikipedia.org/wiki/Cache_(computing)>), in order to improve the performance and scalability of a system. When data is accessed from a cache, it is typically accessed more quickly than if it were retrieved from its original location, such as a database or a file system. This can improve the performance of the system and reduce the load on its underlying data storage.
+
+Caching is often used in web applications and other systems that need to retrieve data quickly and efficiently. For example, a web application might use a cache to store the results of common database queries, or to store the results of computationally expensive operations. This can improve the performance of the web application by allowing it to retrieve data more quickly, and can reduce the load on its underlying data storage.
 
 For caching, you can use tools like [Redis](https://redis.io/), [Memcached](https://memcached.org/), or other key-value stores.
 
@@ -436,7 +490,9 @@ References:
 
 #### Distributed caches
 
-A [distributed cache](https://en.wikipedia.org/wiki/Distributed_cache#:~:text=In%20computing%2C%20a%20distributed%20cache,database%20and%20web%20session%20data.) is an extension of the cache from a single server to multiple servers. A distributed cache can improve the performance and scalability of the system.
+A [distributed cache](https://en.wikipedia.org/wiki/Distributed_cache#:~:text=In%20computing%2C%20a%20distributed%20cache,database%20and%20web%20session%20data.) is a system for storing and managing data in a distributed environment. It is a type of cache, which is a temporary storage area for frequently accessed data, that is designed to work in a distributed system, where multiple nodes or servers are used to store and manage data.
+
+Distributed caches are used to improve the performance and scalability of distributed systems by storing data in a way that allows it to be accessed and updated quickly and efficiently. They typically use a [distributed hash table](https://en.wikipedia.org/wiki/Distributed_hash_table) (DHT) to store data across multiple nodes or servers, and to map keys to the locations of their corresponding data. This allows data to be accessed and updated in a distributed manner, and can improve the performance and scalability of the system.
 
 References:
 
@@ -446,6 +502,8 @@ References:
 #### CDNs
 
 [Content delivery network](https://en.wikipedia.org/wiki/Content_delivery_network) is geographically distributed group of servers which work together to provide fast delivery of Internet content.
+
+CDNs work by storing copies of content at multiple locations around the world, and by routing users requests to the nearest location that has a copy of the requested content. This can reduce the distance that data has to travel, and can improve the speed and performance of content delivery.
 
 A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos.
 
@@ -538,7 +596,7 @@ References:
 
 #### Selective data replication
 
-Selective data replication is creating a copy of the data needed from other remote system (external api, microservice etc) into the database of our system.
+Selective data replication is creating a copy of the data needed from other remote system (external API, microservice, etc.) into the database of our system.
 
 This approach reduces coupling, runtime dependency, improve latency and makes system more scalable and reliable. Even if external source of data is unaccessible, you still have this data replicated in your own database.
 
@@ -550,11 +608,13 @@ References:
 
 #### Event-driven architecture
 
+Event-driven architecture is a design pattern for software applications that emphasizes the production, detection, and consumption of events as a core mechanism for communication and coordination. In an event-driven architecture, events are used to represent significant changes or actions that occur within the system, and are used to trigger functions or processes that react to those events.
+
+In an event-driven architecture, events are typically represented as messages or notifications that are sent by one component of the system to another. These messages can be sent asynchronously, allowing the components of the system to operate independently and in parallel. When a component receives an event message, it can trigger a response or action, such as updating its internal state, performing an operation, or sending another event message.
+
 An event is a broadcast by a software system about something which has happened within its boundary. For example, when the system successfully create an order, it can publish an `ORDER_CREATED` event.
 
-Using asynchronous communication and event-driven architecture ensures loose-coupled components in a system.
-
-TODO
+Event-driven architecture is a flexible and scalable approach to building software applications, and can enable applications to respond quickly and efficiently to changes or actions within the system. It is often used in distributed systems, microservices architectures, and real-time applications, where it can provide a powerful and efficient mechanism for communication and coordination.
 
 References:
 
@@ -653,7 +713,13 @@ References:
 
 In modern distributed systems, eventual consistency is preferred because it scales better. But how do we achieve it?
 
-One of the patterns for this is Sagas. A saga is a sequence of local transactions, but unlike 2PC, each transaction commits immediately, without waiting for other participants to finish. This way, all transactions will be committed asynchronously(eventually). Each participant must have a compensating mechanism to revert a saga, so if one of the participants fails, saga should start a revert process to undo all the changes.
+One of the patterns for this is Sagas.
+
+The saga pattern is a design pattern for managing transactions and long-running processes in distributed systems. In a distributed system, a transaction or long-running process may involve multiple services or components, and may require coordination and communication between those services or components in order to complete successfully. The saga pattern provides a way to manage these transactions or processes in a consistent and reliable manner.
+
+In the saga pattern, a transaction or long-running process is represented as a series of independent steps, called sagas. Each saga is a separate unit of work that can be executed independently of the others, and can be rolled back or compensated if necessary.
+
+A saga is a sequence of local transactions, but unlike 2PC, each transaction commits immediately, without waiting for other participants to finish. This way, all transactions will be committed asynchronously(eventually). Each participant must have a compensating mechanism to revert a saga, so if one of the participants fails, saga should start a revert process to undo all the changes.
 
 References:
 
@@ -662,6 +728,8 @@ References:
 - [Compensating Transaction pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction)
 
 ##### Orchestration
+
+When using orchestration approach, sagas are coordinated and managed by a saga manager, or orchestrator, which is responsible for ensuring that the sagas are executed in the correct order and that any errors or exceptions are handled properly.
 
 Orchestration is a centralized approach. Parts of the system that are participating in a workflow are controlled by a single entity called Orchestrator, which is responsible for executing each step in a flow and ensuring consistency of the entire operation.
 
@@ -689,7 +757,13 @@ References:
 
 ##### Process manager
 
-[Process manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) is used to maintain the state of the sequence and determine the next processing step based on intermediate results.
+A [Process manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) is a software component or system that is responsible for managing and coordinating the execution of processes within an application or system. A process is a unit of work that is performed by the application or system, and a process manager is responsible for managing the execution of processes, including starting, stopping, and monitoring processes, and handling any errors or exceptions that may occur during their execution.
+
+The process manager is an important component of many applications and systems, and is responsible for ensuring that processes are executed in a coordinated and efficient manner. It can provide several benefits, such as improved performance, reliability, and scalability, and can also make it easier to manage and maintain the application or system.
+
+In many cases, the process manager is implemented as a separate component that is responsible for managing the execution of processes within the application or system. It may interact with other components, such as a message queue or a database, in order to coordinate the execution of processes and to store and retrieve data as needed.
+
+Process manager is used to maintain the state of the sequence and determine the next processing step based on intermediate results.
 
 Process manager is very similar to Orchestrator. In fact, a lot of people use the terms like "Saga" and "Orchestration" when in reality they are talking about the process manager.
 
@@ -821,6 +895,8 @@ Below we will discuss few patterns to deal with that.
 
 [Lamport timestamp](https://en.wikipedia.org/wiki/Lamport_timestamp) algorithm is a simple logical clock algorithm used to determine the order of events in a distributed computer system.
 
+It works by assigning a unique sequence number to each event that occurs in the system. When two nodes communicate, they exchange their sequence numbers, and each node updates its own sequence number with the maximum of its current sequence number and the received sequence number. This allows each node to keep track of the relative order of events across the entire system, and to determine whether one event happened before or after another event.
+
 References:
 
 - [Lamport Clock](https://martinfowler.com/articles/patterns-of-distributed-systems/lamport-clock.html)
@@ -829,6 +905,10 @@ References:
 #### Vector clocks
 
 [Vector clock](https://en.wikipedia.org/wiki/Vector_clock) is a data structure used for determining the partial ordering of events in a distributed system and detecting causality violations.
+
+A vector clock is a set of timestamp counters, one for each node in a distributed system. Each node increments its own timestamp counter when it performs an event, and the vector clock is used to record the current timestamp counters at each node.
+
+Vector clocks are used to determine the relative order of events in a distributed system.
 
 References:
 
@@ -846,11 +926,11 @@ References:
 
 ### Consensus algorithms
 
+Consensus algorithms are algorithms used to achieve agreement on a single data value among a group of distributed processes or systems. These algorithms are designed to enable a group of nodes to come to an agreement on the state of the system, despite the presence of faulty nodes or network partitions.
+
 #### Byzantine generals problem
 
-[Byzantine generals problem](https://en.wikipedia.org/wiki/Byzantine_fault)
-
-TODO
+[Byzantine generals problem](https://en.wikipedia.org/wiki/Byzantine_fault) is a problem in computer science and game theory that is used to describe the challenges of achieving consensus in a distributed system in the presence of faulty nodes.
 
 #### Raft
 
@@ -864,9 +944,7 @@ References:
 
 #### Paxos
 
-[Paxos](<https://en.wikipedia.org/wiki/Paxos_(computer_science)>)
-
-TODO
+[Paxos](<https://en.wikipedia.org/wiki/Paxos_(computer_science)>) algorithm is a distributed consensus algorithm that is used to achieve consensus in a distributed system.
 
 ---
 
@@ -874,10 +952,11 @@ TODO
 
 ### Event Sourcing
 
-When using Event sourcing your data is saved as a sequence of immutable events.
-This is valuable when auditing is needed, for example when dealing with money transactions.
+Event sourcing is a software design pattern in which the state of an application is represented and stored as a sequence of events. Each event represents a change in the state of the application, and the sequence of events represents the current and past states of the application.
 
-TODO
+In event sourcing, the application maintains a log or stream of events, which are stored in a durable, append-only data store, such as a database or a file system. Each event in the log is immutable, uniquely identified, and is associated with a specific point in time. The application can reconstruct the current state of the application by replaying the events in the log, from the beginning to the end, in the order in which they occurred.
+
+Event sourcing is often used in applications that need to maintain a high level of reliability, or that need to be able to reconstruct the state of the application from historical data.
 
 References:
 
@@ -886,9 +965,15 @@ References:
 
 #### CQRS
 
-CQRS stands for Command and Query Responsibility Segregation.
+CQRS (Command Query Responsibility Segregation) is an architectural pattern that separates the responsibilities of querying data from the responsibilities of modifying data. In CQRS, the two responsibilities are handled by separate components or systems, which are designed and optimized independently of each other.
 
-When using CQRS we write data to a database that provides fast writing speeds, and create a copy of that data in a database that is optimized for reads. Commands are forwarded to a write database, queries are forwarded to a read database. This can improve read and write performance of your application.
+In a CQRS system, the query side is responsible for providing access to data in a read-only manner. It typically exposes a set of APIs or interfaces that allow applications to query the data, but does not allow the data to be modified. The query side is typically optimized for performance and scalability, and may use techniques such as caching or denormalization to improve the performance of queries.
+
+On the other hand, the command side is responsible for modifying the data. It exposes a set of APIs or interfaces that allow applications to submit commands to modify the data, such as creating, updating, or deleting data. The command side is typically optimized for consistency and durability, and may use techniques such as transactions or event sourcing to ensure that the data is modified in a consistent and reliable manner.
+
+CQRS is often used in applications that have complex data-modification requirements, or that need to support high levels of concurrency and scalability. It is a useful technique for separating the responsibilities of querying and modifying data.
+
+Usually when using CQRS we write data to a database that provides fast writing speeds and/or consistency guarantees, and create a copy of that data in a database that is optimized for reads. Commands are forwarded to a White database, queries are forwarded to a Read database. This can improve read and write performance of your application.
 
 Your application can be separated into commands and queries using CQS pattern, you can read about it and see code examples here: [Commands and Queries](https://github.com/Sairyss/domain-driven-hexagon#commands-and-queries)
 
@@ -990,7 +1075,7 @@ References:
 
 ### Local-first software
 
-TODO
+Local-first software is a term used to describe a class of software applications that prioritize working offline and storing data locally, rather than relying on remote servers and the cloud. This approach emphasizes the importance of data ownership and control, and aims to provide users with more reliable and efficient access to their data.
 
 References:
 
@@ -998,9 +1083,9 @@ References:
 
 ### Consistent Hashing
 
-[Consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing)
+[Consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing) is a way of distributing keys across a cluster of nodes in a way that minimizes the number of keys that need to be moved when nodes are added or removed from the cluster. This can improve the performance and scalability of the system, as well as making it more resilient to changes in the number of nodes.
 
-TODO
+Consistent hashing is often used in distributed databases, distributed file systems, and other distributed systems where data needs to be distributed across multiple nodes. It is also used in caching systems to distribute cache keys across multiple cache servers.
 
 References:
 
@@ -1008,7 +1093,11 @@ References:
 
 #### Hash ring
 
-TODO
+A hash ring, also known as a consistent hashing ring, is a data structure that is used to distribute keys or values across a cluster of nodes in a distributed system. In a hash ring, each node in the cluster is assigned a range of keys or values, based on the node's position on the ring.
+
+The hash ring is constructed using a hash function, which maps the keys or values to specific points on the ring. When a new key or value is added to the system, the hash function is used to determine the position of the key or value on the ring, and the key or value is assigned to the node that is responsible for the range of keys or values that includes the position of the key or value.
+
+Hash rings are often used in distributed systems, such as distributed databases or distributed caches, to distribute keys or values across the nodes in the cluster in a consistent and efficient manner.
 
 References:
 
