@@ -101,9 +101,9 @@ Topics and resources related to distributed systems, system design, microservice
 
 ### Synchronous communication
 
-Synchronous communication is a mode of communication in which the parties involved need to be in contact with each other at the same time in order to exchange messages or information. In synchronous communication, messages are typically transmitted between the parties, and are received and processed immediately, without any delay.
+Synchronous communication is a type of communication in which the systems involved need to be in contact with each other at the same time in order to exchange messages or information. In synchronous communication, messages are typically transmitted and processed immediately, without any delay.
 
-Synchronous communication is often used in real-time applications, where the parties need to exchange messages or information in a timely manner in order to maintain the integrity or consistency of the system. By using synchronous communication, the parties can exchange messages and information in a coordinated and immediate manner, which can improve the performance and reliability of the system.
+It is often used in real-time applications, where the parties need to exchange messages or information in a timely manner in order to maintain the integrity or consistency of the system. By using synchronous communication, systems can exchange messages and information in a coordinated and immediate manner, which can improve the reliability.
 
 There are several ways to implement synchronous communication, including using [remote procedure calls (RPCs)](https://en.wikipedia.org/wiki/Remote_procedure_call), [sockets](https://en.wikipedia.org/wiki/Network_socket), or other mechanisms. The choice of approach depends on the specific requirements and constraints of the system, and on the type and amount of data that needs to be exchanged.
 
@@ -121,9 +121,9 @@ Synchronous calls between distributed systems is not always a good idea. It crea
 
 ### Asynchronous communication
 
-Asynchronous communication is a mode of communication in which the parties involved do not need to be in contact with each other at the same time in order to exchange messages or information. In asynchronous communication, messages are typically transmitted between the parties, and then are received and processed at a later time.
+Asynchronous communication is a type of communication in which the systems involved do not need to be in contact with each other at the same time in order to exchange messages or information. In asynchronous communication, messages are typically processed at a later time.
 
-Asynchronous communication is often used in distributed systems, where the parties involved are located in different places, or are operating at different times. By using asynchronous communication, the parties can exchange messages without needing to be in contact with each other at the same time, which can improve the flexibility and scalability of the system.
+It is often used in distributed systems where the parties involved are located in different places, or are operating at different times. By using asynchronous communication, systems can exchange messages without needing to be in contact with each other at the same time, which can improve the flexibility and scalability of the system.
 
 In short, when using async communication, client or message sender doesn't wait for a response. It just sends a message which is stored until the receiver takes it (fire and forget).
 
@@ -144,9 +144,9 @@ References:
 
 ### Data serialization
 
-Data serialization is the process of converting structured data into a format that can be stored or transmitted, and reconstructed later. The process of serialization involves translating the data into a format that can be easily stored or transmitted, such as a string of characters or bytes, and then reconstructing the data from the serialized format when it is needed.
+Data [serialization](https://en.wikipedia.org/wiki/Serialization) is the process of converting structured data into a format that can be easily stored or transmitted. The process of serialization involves translating the data into a specific format, such as a string of characters or bytes, and then deserialized back to the original format when it is needed.
 
-Data serialization is often used in distributed systems, where data needs to be transferred between different nodes or components in the system. By serializing the data, it can be transmitted over a network or stored in a file, and then reconstructed at the other end of the transmission. This allows the data to be transferred efficiently and reliably, and makes it possible for different nodes or components in the system to share data.
+Data serialization is often used in distributed systems where data needs to be transferred between different nodes or components in the system. By serializing the data, it can be transmitted over a network or stored in a file, and then reconstructed at the other end of the transmission. This allows the data to be transferred efficiently and reliably.
 
 To address the issue of multi-language microservices communication, a possible solution is to describe our data models in some language-agnostic way, so we can generate the same models for each language. This requires the use of an IDL, or [interface definition language](https://en.wikipedia.org/wiki/Interface_description_language).
 
@@ -305,7 +305,7 @@ References:
 
 Database replication is a technique for copying data from one database to another, in order to provide multiple copies of the data for fault tolerance, scalability, or performance. Database replication can be used to create a redundant copy of a database, or to distribute a database across multiple nodes or locations.
 
-In database replication, data is copied from a source database to one or more target databases. The source and target databases can be located on the same server, or on different servers. The data is copied asynchronously, which means that the source and target databases can operate independently of each other, and the data is copied in the background without interrupting the operation of the databases.
+In database replication, data is copied from a source database to one or more target databases. The source and target databases can be located on the same server, or on different servers. The data can be copied asynchronously, which means that the source and target databases can operate independently of each other, and the data is copied in the background without interrupting the operation of the databases.
 
 Database replication can provide several benefits, such as improved availability and fault tolerance, better performance and scalability, and easier data management and maintenance.
 
