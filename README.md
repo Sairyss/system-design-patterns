@@ -777,6 +777,7 @@ Workflow engines are [workflow management systems](https://en.wikipedia.org/wiki
 
 Workflow engines:
 
+- [Temporal](https://temporal.io/) - open source workflow engine
 - [Apache Airflow](https://github.com/apache/airflow) - is a platform created by AirBnb to programmatically author, schedule, and monitor workflows.
 - [Google cloud workflows](https://cloud.google.com/workflows) - easily build reliable applications, process automation, data and machine learning pipelines on Google Cloud.
 - [Camunda](https://camunda.com) - The Universal Process Orchestrator
@@ -811,6 +812,7 @@ There are multiple techniques to avoid dual writes, like Outbox Pattern and Retr
 References:
 
 - [Dual Writes – The Unknown Cause of Data Inconsistencies](https://thorben-janssen.com/dual-writes/)
+- [Don't Fail Publishing Events! Event Driven Architecture Consistency](https://youtu.be/tcePbob8rrY)
 
 #### The Outbox Pattern
 
