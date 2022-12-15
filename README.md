@@ -605,6 +605,7 @@ Data that is frequently accessed but changes regularly can be cached temporarily
 References:
 
 - [Querying data across microservices](https://medium.com/@john_freeman/querying-data-across-microservices-8d7a4667668a)
+- ["I NEED data from another service!"... Do you really?](https://youtu.be/anL-RGKz_Ak)
 
 #### Event-driven architecture
 
@@ -1197,3 +1198,4 @@ References:
 - [Introduction to AWS Services](https://youtu.be/Z3SYDTMP3ME)
 - [Systems Engineering](https://youtube.com/playlist?list=PLn8PRpmsu08owzDpgnQr7vo2O-FUQm_fL)
 - [InfoQ Channel](https://www.youtube.com/nctv)
+- [CodeOpinion Channel](https://www.youtube.com/@CodeOpinion)
