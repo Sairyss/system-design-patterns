@@ -596,15 +596,16 @@ References:
 
 #### Selective data replication
 
-Selective data replication is creating a copy of the data needed from other remote system (external API, microservice, etc.) into the database of our system.
+Selective data replication is creating a copy of the data needed from other remote system (external API, microservice, etc.) into the database of our system, essentially creating a cache of that data that is always available.
 
-This approach reduces coupling, runtime dependency, improve latency and makes system more scalable and reliable. Even if external source of data is unaccessible, you still have this data replicated in your own database.
+You can subscribe to the events that indicate data updates from other services, for example, subscribe to `ProductPriceUpdatedEvent` and update your local cache when the price changes. Alternatively, if events are not available, you can query an external service periodically to update your cache.
 
-Data that is frequently accessed but changes regularly can be cached temporarily with periodic cache refreshes. Data that changes less frequently or never can be stored in our system's database directly.
+This approach reduces coupling, runtime dependency, improve latency and makes system more scalable and reliable. Even if external source of data is inaccessible, you still have this data replicated in your own database. But keep in mind that cached data can be stale.
 
 References:
 
 - [Querying data across microservices](https://medium.com/@john_freeman/querying-data-across-microservices-8d7a4667668a)
+- [Event Carried State Transfer: Keep a local cache!](https://youtu.be/IzBEbfSg0uY)
 - ["I NEED data from another service!"... Do you really?](https://youtu.be/anL-RGKz_Ak)
 
 #### Event-driven architecture
