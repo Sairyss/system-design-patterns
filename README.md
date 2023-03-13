@@ -624,6 +624,7 @@ References:
 - [Why Microservices Should Be Event Driven: Autonomy vs Authority](https://www.google.com/search?client=firefox-b-d&q=consistent+hashing)
 - [Using Events to build evolutionary architectures](https://kislayverma.com/software-architecture/using-events-to-build-evolutionary-architectures/)
 - [[YouTube] Moving to event-driven architectures](https://youtu.be/h46IquqjF3E)
+- [[YouTube] My TOP Patterns for Event Driven Architecture](https://youtu.be/P5hq6iWn_p8)
 
 ##### Event-driven end-to-end
 
