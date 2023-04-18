@@ -979,7 +979,7 @@ On the other hand, the command side is responsible for modifying the data. It ex
 
 CQRS is often used in applications that have complex data-modification requirements, or that need to support high levels of concurrency and scalability. It is a useful technique for separating the responsibilities of querying and modifying data.
 
-Usually when using CQRS we write data to a database that provides fast writing speeds and/or consistency guarantees, and create a copy of that data in a database that is optimized for reads. Commands are forwarded to a White database, queries are forwarded to a Read database. This can improve read and write performance of your application.
+Usually when using CQRS we write data to a database that provides fast writing speeds and/or consistency guarantees, and create a copy of that data in a database that is optimized for reads. Commands are forwarded to a Write database, queries are forwarded to a Read database. This can improve read and write performance of your application.
 
 Your application can be separated into commands and queries using CQS pattern, you can read about it and see code examples here: [Commands and Queries](https://github.com/Sairyss/domain-driven-hexagon#commands-and-queries)
 
