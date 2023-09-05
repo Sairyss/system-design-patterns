@@ -675,11 +675,15 @@ Distributed systems are made up of parts which interact relatively slowly and un
 - **Strong consistency** - After a write, there is a guarantee that reads will se it. Data is replicated synchronously, usually using some kind of [transaction](https://en.wikipedia.org/wiki/Database_transaction).
 - **Eventual consistency** - After a write, readers will eventually see written data (usually within seconds) and data is replicated asynchronously. Eventual consistency works best for distributed systems at a large scale.
 
+Familiarize with [Fallacies of distributed computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing) before implementing any kind of distributed system. Added complexities may not be worth it.
+
 Below we will discuss where and why we need consistency, how to achieve it and some associated problems.
 
 References:
 
 - [Data Consistency Primer](<https://docs.microsoft.com/en-us/previous-versions/msp-n-p/dn589800(v=pandp.10)>)
+- [Fallacies of Distributed Systems](https://architecturenotes.co/fallacies-of-distributed-systems/)
+- [Consistency Models in Distributed System](https://xzhu0027.gitbook.io/blog/misc/index/consistency-models-in-distributed-system)
 
 ### Different views on data
 
