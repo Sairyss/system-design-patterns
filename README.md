@@ -456,9 +456,11 @@ Relational databases are a better choice as a main database for most projects, e
 
 SQL databases include: MySQL, PostgreSQL, Microsoft SQL server, Oracle, MariaDB and many more. Cloud providers like AWS, GCP and Azure include their own relational database solutions.
 
-**NoSQL** is a good choice for unstructured/non-relational data. Because unstructured data is usually self-contained and consists of independent objects with no relations, it is easier to partition, thus it is easier to scale horizontally.
+**NoSQL** is a good choice for unstructured/non-relational data. Because unstructured data is usually self-contained and consists of independent objects with no relations, it is easier to shard/partition, thus it is easier to scale horizontally.
 
-NoSQL / Non-Relational databases can be a good choice for large scale projects with more than few millions of active users, but since NoSQL databases lack ACID properties (NoSQL are usually eventually consistent) and relational structures, they are not the best choice as a main database for most projects on a low scale. Consider all pros and cons and choose wisely when picking a database.
+NoSQL / Non-Relational databases can be a good choice for large scale projects with more than few millions of active users (especially when you need to do sharding, because NoSQL with it's denormalized data is easier to shard), but since NoSQL databases lack ACID properties (NoSQL are usually eventually consistent) and relational structures, they are not the best choice as a main database for most projects, especially on a low scale.
+
+Also, contrary to popular claims that NoSQL is faster, it's not always the case. In fact, for most of the typical query needs relational databases can be much faster (as described by this research: [Performance benchmark: PostgreSQL/MongoDB](https://info.enterprisedb.com/rs/069-ALB-339/images/PostgreSQL_MongoDB_Benchmark-WhitepaperFinal.pdf)), but ultimately everything depends on your query patterns.
 
 NoSQL databases include: MongoDB, Cassandra, Redis and many more. Cloud providers like AWS, GCP and Azure include their own non-relational database solutions.
 
