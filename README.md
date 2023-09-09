@@ -36,6 +36,7 @@ Topics and resources related to distributed systems, system design, microservice
       - [Multitenancy](#multitenancy)
       - [SQL vs NoSQL](#sql-vs-nosql)
       - [Identifiers](#identifiers)
+      - [Connection pooling](#connection-pooling)
     - [Caching](#caching)
       - [Caching strategies](#caching-strategies)
       - [Distributed caches](#distributed-caches)
@@ -475,6 +476,16 @@ Identifiers (or primary keys) uniquely identify rows of data in tables, and make
 
 - [Choosing a Postgres Primary Key](https://supabase.com/blog/choosing-a-postgres-primary-key)
 - [Ultimate Guide to Identifiers](https://wookieb.pl/guide/identifiers)
+
+#### Connection pooling
+
+Opening and maintaining a database connection for each client is expensive (establishing TCP connection, process creation, etc.).
+
+[Connection pool](https://en.wikipedia.org/wiki/Connection_pool) is a cache of database connections maintained so that the connections can be reused when future requests to the database are required. After a connection is created, it is placed in the pool and reused again so that a new connection does not have to be established.
+
+This can significantly improve performance when large amount of clients are connecting to the database at once.
+
+For example, if you are using PostgreSQL, popular solutions include [pgbouncer](https://github.com/pgbouncer/pgbouncer) and [pgcat](https://github.com/postgresml/pgcat). Though keep in mind that adding those technologies can come at a cost, more info here: [PgBouncer is useful, important, and fraught with peril](https://jpcamara.com/2023/04/12/pgbouncer-is-useful.html#connection-pooling).
 
 ### Caching
 
