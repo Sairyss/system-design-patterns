@@ -472,10 +472,11 @@ References:
 
 #### Identifiers
 
-Identifiers (or primary keys) uniquely identify rows of data in tables, and make it easy to fetch data. It's important to know what options you have beyond serial integers and UUID v4, since on top of being unique (or globally unique [GUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier) in big apps) your IDs can include encoded timestamp and/or other important metadata that can be used for efficient sorting and other things. There are plenty of ID formats lately, like UUIDv7, [Snowflake](https://en.wikipedia.org/wiki/Snowflake_ID), [ULID](https://github.com/ulid/spec), etc. and it's important to know which one is best to use for your database models (and also event IDs, especially when using Event Sourcing).
+Identifiers (or primary keys) uniquely identify rows of data in tables, and make it easy to fetch data. It's important to know what options you have beyond serial integers and UUID v4, since on top of being unique (or globally unique [GUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier) in big apps) your IDs can include encoded timestamp and/or other important metadata that can be used for efficient sorting, better indexing locality, and other things. There are plenty of ID formats lately, like UUIDv7, [Snowflake](https://en.wikipedia.org/wiki/Snowflake_ID), [ULID](https://github.com/ulid/spec), etc. and it's important to know which one is best to use for your database models (and also event IDs, especially when using Event Sourcing).
 
 - [Choosing a Postgres Primary Key](https://supabase.com/blog/choosing-a-postgres-primary-key)
 - [Ultimate Guide to Identifiers](https://wookieb.pl/guide/identifiers)
+- [Goodbye integers. Hello UUIDv7!](https://buildkite.com/blog/goodbye-integers-hello-uuids)
 
 #### Connection pooling
 
