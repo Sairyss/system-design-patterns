@@ -478,6 +478,7 @@ Identifiers (or primary keys) uniquely identify rows of data in tables, and make
 - [Ultimate Guide to Identifiers](https://wookieb.pl/guide/identifiers)
 - [Goodbye integers. Hello UUIDv7!](https://buildkite.com/blog/goodbye-integers-hello-uuids)
 - [BigTable Schema design best practices -> Row Keys](https://cloud.google.com/bigtable/docs/schema-design#row-keys)
+- [Unexpected downsides of UUID keys in PostgreSQL](https://www.cybertec-postgresql.com/en/unexpected-downsides-of-uuid-keys-in-postgresql/)
 
 #### Connection pooling
 
